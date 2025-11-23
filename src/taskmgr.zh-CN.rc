@@ -1,0 +1,1026 @@
+﻿#include "resource.h"
+#include <windows.h>
+#include <commctrl.h>
+
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_MAINWND DIALOGEX 0, 0, 264, 256
+STYLE DS_3DLOOK | DS_FIXEDSYS | WS_POPUP | WS_CLIPCHILDREN | WS_CAPTION |
+    WS_THICKFRAME
+MENU IDR_MAINMENU_TASK
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    CONTROL         "Tab1",IDC_TABS,"SysTabControl32",WS_TABSTOP,3,3,91,116
+END
+
+IDD_PERFPAGE DIALOGEX 0, 0, 438, 303
+STYLE DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+FONT 9, "宋体"
+BEGIN
+    CONTROL         "CPU 使用情况显示",IDC_CPUMETER,"Button",BS_OWNERDRAW | WS_DISABLED,14,
+                    17,48,44,WS_EX_CLIENTEDGE
+    CONTROL         "内存使用情况显示",IDC_MEMMETER,"Button",BS_OWNERDRAW | WS_DISABLED,14,
+                    77,48,44,WS_EX_CLIENTEDGE
+    CONTROL         "内存使用记录",IDC_MEMGRAPH,"Button",BS_OWNERDRAW | WS_DISABLED,82,
+                    77,48,44,WS_EX_CLIENTEDGE
+    LTEXT           "句柄数",IDC_STATIC14,14,139,32,8
+    EDITTEXT        IDC_TOTAL_HANDLES,59,139,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "线程数",IDC_STATIC15,14,148,32,8
+    EDITTEXT        IDC_TOTAL_THREADS,59,148,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "进程数",IDC_STATIC16,14,157,34,8
+    EDITTEXT        IDC_TOTAL_PROCESSES,59,157,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "正常运行时间",IDC_STATIC19,14,166,50,8
+    EDITTEXT        IDC_UP_TIME,75,166,41,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "总数",IDC_STATIC6,14,192,32,8
+    EDITTEXT        IDC_COMMIT_TOTAL,59,192,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "限制",IDC_STATIC8,14,201,32,8
+    EDITTEXT        IDC_COMMIT_LIMIT,59,201,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "峰值",IDC_STATIC9,14,210,32,8
+    EDITTEXT        IDC_COMMIT_PEAK,59,210,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "总数",IDC_STATIC2,136,139,32,8
+    EDITTEXT        IDC_TOTAL_PHYSICAL,182,139,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "可用数",IDC_STATIC3,136,148,32,8
+    EDITTEXT        IDC_AVAIL_PHYSICAL,182,148,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "空闲",IDC_STATIC18,136,157,32,8
+    EDITTEXT        IDC_FREE_PHYSICAL,182,157,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "系统缓存",IDC_STATIC4,136,166,68,8
+    EDITTEXT        IDC_FILE_CACHE,182,166,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "总数",IDC_STATIC11,136,192,32,8
+    EDITTEXT        IDC_KERNEL_TOTAL,182,192,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "分页数",IDC_STATIC12,136,201,32,8
+    EDITTEXT        IDC_KERNEL_PAGED,182,201,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "未分页",IDC_STATIC17,136,210,34,8
+    EDITTEXT        IDC_KERNEL_NONPAGED,182,210,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    CONTROL         "CPU 使用",IDC_STATIC,"DavesFrameClass",0x7,8,5,60,60,
+                    WS_EX_NOPARENTNOTIFY
+    CONTROL         "PF 使用",IDC_MEMBARFRAME,"DavesFrameClass",0x7,8,67,
+                    60,60,WS_EX_NOPARENTNOTIFY
+    CONTROL         "页面文件使用记录",IDC_MEMFRAME,"DavesFrameClass",
+                    0x7,78,67,60,60,WS_EX_NOPARENTNOTIFY
+    CONTROL         "总数",IDC_STATIC13,"DavesFrameClass",0x7,8,129,113,48,
+                    WS_EX_NOPARENTNOTIFY
+    CONTROL         "CPU 使用记录",IDC_CPUGRAPH,"Button",BS_OWNERDRAW | WS_DISABLED,82,
+                    15,6,44,WS_EX_CLIENTEDGE
+    CONTROL         "CPU 使用记录",IDC_CPUFRAME,"DavesFrameClass",0x7,
+                    78,5,8,60,WS_EX_NOPARENTNOTIFY
+    CONTROL         "物理内存 (K)",IDC_STATIC1,"DavesFrameClass",0x7,
+                    130,129,114,48,WS_EX_NOPARENTNOTIFY
+    CONTROL         "提交负载 (K)",IDC_STATIC5,"DavesFrameClass",0x7,8,
+                    182,113,39,WS_EX_NOPARENTNOTIFY
+    CONTROL         "核心内存 (K)",IDC_STATIC10,"DavesFrameClass",0x7,
+                    130,182,114,39,WS_EX_NOPARENTNOTIFY
+END
+
+IDD_NETPAGE DIALOGEX 0, 0, 438, 303
+STYLE DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+FONT 9, "宋体"
+BEGIN
+    CONTROL         "总数",IDC_NICTOTALS,"SysListView32",LVS_REPORT |
+                    LVS_SINGLESEL | WS_BORDER | WS_TABSTOP,9,9,376,131
+    LTEXT           "没有找到活动的网卡。",IDC_NOADAPTERS,14,139,32,8, SS_CENTER
+    SCROLLBAR       IDC_GRAPHSCROLLVERT,290,5,10,136,SBS_VERT | WS_TABSTOP
+
+END
+
+
+IDD_PROCPAGE DIALOGEX 0, 0, 393, 197
+STYLE DS_3DLOOK | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_CLIPCHILDREN
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    CONTROL         "进程",IDC_PROCLIST,"SysListView32",LVS_REPORT |
+                    LVS_SINGLESEL | WS_BORDER | WS_TABSTOP,9,9,376,131
+    CONTROL         "显示所有用户的进程(&S)",IDC_SHOWALL,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,10,144,120,10
+    PUSHBUTTON      "结束进程(&E)",IDC_TERMINATE,320,144,66,14
+END
+
+IDD_TASKPAGE DIALOGEX 0, 0, 393, 177
+STYLE DS_3DLOOK | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_CLIPCHILDREN
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    CONTROL         "任务",IDC_TASKLIST,"SysListView32",LVS_REPORT |
+                    WS_BORDER | WS_TABSTOP,9,9,378,139
+    PUSHBUTTON      "结束任务(&E)",IDC_ENDTASK,224,152,53,14
+    DEFPUSHBUTTON   "切换至(&S)",IDC_SWITCHTO,280,152,53,14
+    PUSHBUTTON      "新任务(&N)...",IDM_RUN,336,152,53,14
+END
+
+IDD_CREATEDESKTOP DIALOGEX 0, 0, 222, 85
+STYLE DS_MODALFRAME | DS_FIXEDSYS | DS_CENTERMOUSE | WS_POPUP | WS_CAPTION |
+    WS_SYSMENU
+CAPTION "创建新桌面"
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,108,64,50,14
+    PUSHBUTTON      "取消",IDCANCEL,162,64,50,14
+    EDITTEXT        IDC_DESKTOPNAME,41,30,172,14,ES_AUTOHSCROLL
+    CONTROL         "在新桌面上创建一个“资源管理器”(&E)",
+                    IDC_STARTEXPLORER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    41,46,158,10
+    LTEXT           "请输入标识新桌面的名称。",
+                    IDC_STATIC,41,10,155,8
+    ICON            IDI_MAIN,IDC_STATIC,8,3,18,20
+    LTEXT           "桌面：",IDC_STATIC,4,33,30,8
+END
+
+IDD_USERSPAGE DIALOG DISCARDABLE  0, 0, 393, 197
+STYLE DS_3DLOOK | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_CLIPCHILDREN
+FONT 9, "宋体"
+BEGIN
+    CONTROL         "用户",IDC_USERLIST,"SysListView32",LVS_REPORT |
+                    WS_BORDER | WS_TABSTOP,9,9,376,131
+    PUSHBUTTON      "断开(&D)",IDM_DISCONNECT,203,144,55,14
+    PUSHBUTTON      "注销(&L)",IDM_LOGOFF,263,144,52,14
+    DEFPUSHBUTTON   "发送消息(&S)...",IDM_SENDMESSAGE,320,144,66,14
+END
+
+IDD_SELECTPROCCOLS DIALOG DISCARDABLE  20, 20, 195, 198
+STYLE DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "选择列"
+FONT 9, "宋体"
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,83,176,50,14
+    PUSHBUTTON      "取消",IDCANCEL,137,176,50,14
+    LTEXT           "请选择要在“任务管理器”的“进程”页上显示的列。",
+                    IDC_STATIC,7,4,177,19
+    CONTROL         "映像名称(&I)",IDC_IMAGENAME,"Button",BS_AUTOCHECKBOX |
+                    WS_DISABLED | WS_TABSTOP,7,26,87,10
+    CONTROL         "PID (进程标识符)(&P)",IDC_PID,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,37,87,10
+    CONTROL         "CPU 使用(&C)",IDC_CPU,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,48,87,10
+    CONTROL         "CPU 时间(&E)",IDC_CPUTIME,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,59,87,10
+    CONTROL         "内存使用(&M)",IDC_MEMUSAGE,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,70,87,10
+    CONTROL         "内存使用增量(&D)",IDC_MEMUSAGEDIFF,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,81,87,10
+    CONTROL         "内存使用峰值(&K)",IDC_MEMPEAK,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,92,92,10
+    CONTROL         "页面错误(&F)",IDC_PAGEFAULTS,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,103,87,10
+    CONTROL         "USER 对象(&U)",IDC_USEROBJECTS,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,114,87,10
+    CONTROL         "I/O 读取",IDC_READOPERCOUNT,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,125,87,10
+    CONTROL         "I/O 读取字节",IDC_READXFERCOUNT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,136,87,10
+    CONTROL         "会话 ID(&S)",IDC_SESSIONID,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,147,63,10
+    CONTROL         "用户名(&N)",IDC_USERNAME,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,158,63,10
+    CONTROL         "页面错误增量(&A)",IDC_PAGEFAULTSDIFF,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,103,26,87,10
+    CONTROL         "虚拟内存大小(&V)",IDC_COMMITCHARGE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,103,37,87,10
+    CONTROL         "页面缓冲池(&G)",IDC_PAGEDPOOL,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,103,48,87,10
+    CONTROL         "非页面缓冲池(&O)",IDC_NONPAGEDPOOL,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,103,59,87,10
+    CONTROL         "基本优先级(&R)",IDC_BASEPRIORITY,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,103,70,87,10
+    CONTROL         "句柄计数(&H)",IDC_HANDLECOUNT,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,103,81,87,10
+    CONTROL         "线程计数(&T)",IDC_THREADCOUNT,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,103,92,87,10
+    CONTROL         "GDI 对象(&J)",IDC_GDIOBJECTS,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,103,103,87,10
+    CONTROL         "I/O 写入",IDC_WRITEOPERCOUNT,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,103,114,87,10
+    CONTROL         "I/O 写入字节",IDC_WRITEXFERCOUNT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,103,125,87,10
+    CONTROL         "I/O 其他",IDC_OTHEROPERCOUNT,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,103,136,87,10
+    CONTROL         "I/O 其他字节",IDC_OTHERXFERCOUNT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,103,147,87,10
+    CONTROL         "命令行",IDC_COMMANDLINE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,103,158,87,10
+END
+
+
+IDD_SELECTNETCOLS DIALOG DISCARDABLE  20, 20, 250, 198
+STYLE DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "选择列"
+FONT 9, "宋体"
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,83,176,50,14
+    PUSHBUTTON      "取消",IDCANCEL,137,176,50,14
+    LTEXT           "请选择要在“任务管理器”的“网络”页上显示的列。",
+                    IDC_STATIC,7,4,177,19
+
+    CONTROL         "网卡名称",IDC_ADAPTERNAME,"Button",BS_AUTOCHECKBOX | WS_DISABLED |
+                    WS_TABSTOP,7,26,117,10
+    CONTROL         "网卡描述",IDC_ADAPTERDESC,"Button",BS_AUTOCHECKBOX |
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,37,117,10
+    CONTROL         "网络应用",IDC_NETWORKUTIL,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,48,117,10
+    CONTROL         "线路速度",IDC_LINKSPEED,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,59,117,10
+    CONTROL         "状态",IDC_STATE,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,70,117,10
+    CONTROL         "发送字节吞吐量",IDC_BYTESSENTTHRU,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,81,117,10
+    CONTROL         "接收字节吞吐量",IDC_BYTESRECTHRU,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,92,117,10
+    CONTROL         "字节吞吐量",IDC_BYTESTOTALTHRU,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,103,117,10
+    CONTROL         "发送字节数",IDC_BYTESSENT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,114,117,10
+    CONTROL         "接收字节数",IDC_BYTESREC,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,125,117,10
+    CONTROL         "字节数",IDC_BYTESTOTAL,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,136,117,10
+    CONTROL         "发送字节数/间隔",IDC_BYTESSENTPERINTER,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,147,117,10
+    CONTROL         "接收字节数/间隔",IDC_BYTESRECPERINTER,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,158,117,10
+    CONTROL         "字节数/间隔",IDC_BYTESTOTALPERINTER,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,133,26,117,10
+    CONTROL         "发送的单播数",IDC_UNICASTSSSENT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,133,37,117,10
+    CONTROL         "接收的单播数",IDC_UNICASTSREC,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,133,48,117,10
+    CONTROL         "单播数",IDC_UNICASTSTOTAL,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,133,59,117,10
+    CONTROL         "发送的单播数/间隔",IDC_UNICASTSSENTPERINTER,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,133,70,117,10
+    CONTROL         "接收的单播数/间隔",IDC_UNICASTSRECPERINTER,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,133,81,117,10
+    CONTROL         "单播数/间隔",IDC_UNICASTSTOTALPERINTER,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,133,92,117,10
+    CONTROL         "发送的非单播数",IDC_NONUNICASTSSSENT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,133,103,117,10
+    CONTROL         "接收的非单播数",IDC_NONUNICASTSREC,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,133,114,117,10
+    CONTROL         "非单播数",IDC_NONUNICASTSTOTAL,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,133,125,117,10
+    CONTROL         "发送的非单播数/间隔",IDC_NONUNICASTSSENTPERINTER,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,133,136,117,10
+    CONTROL         "接收的非单播数/间隔",IDC_NONUNICASTSRECPERINTER,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,133,147,117,10
+    CONTROL         "非单播数/间隔",IDC_NONUNICASTSTOTALPERINTER,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,133,158,117,10
+
+END
+
+IDD_AFFINITY DIALOGEX 20, 20, 232, 66
+STYLE DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "处理器关系"
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,121,47,50,14
+    PUSHBUTTON      "取消",IDCANCEL,175,47,50,14
+    LTEXT           "“处理器关系”设置控制允许执行该进程的 CPU。",
+                    IDC_STATIC,7,6,218,19
+    CONTROL         "CPU %u",IDC_CPU0,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    13,35,37,10
+END
+
+IDD_SELECTUSERCOLUMNS DIALOG DISCARDABLE  0, 0, 200, 92
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "选择列"
+FONT 9, "宋体"
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,89,71,50,14
+    PUSHBUTTON      "取消",IDCANCEL,143,71,50,14
+    LTEXT           "请选择要在“任务管理器”的“用户”页上显示的列。",
+                    IDC_STATIC,7,4,177,19
+    CONTROL         "用户名(&U)",IDC_USER_NAME,"Button",BS_AUTOCHECKBOX |
+                    WS_DISABLED | WS_TABSTOP,7,26,87,10
+    CONTROL         "标识(&I)",IDC_SESSION_ID,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,37,87,10
+    CONTROL         "状态(&S)",IDC_SESSION_STATUS,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,47,87,10
+    CONTROL         "客户端名(&C)",IDC_CLIENT_NAME,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,106,36,87,10
+    CONTROL         "会话(&E)",IDC_WINSTA_NAME,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,106,47,87,10
+END
+
+IDD_MESSAGE DIALOGEX 50, 50, 214, 116
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CONTEXTHELP
+CAPTION "发送消息"
+FONT 9, "宋体", 0, 0, 0x1
+BEGIN
+    LTEXT           "消息标题(&M)：",IDC_STATIC,7,7,200,8
+    EDITTEXT        IDC_MESSAGE_TITLE,7,17,200,25,ES_MULTILINE |
+                    ES_AUTOVSCROLL
+    LTEXT           "消息(&S)：",IDC_STATIC,7,50,200,8
+    EDITTEXT        IDC_MESSAGE_MESSAGE,7,60,200,25,ES_MULTILINE |
+                    ES_AUTOVSCROLL
+    DEFPUSHBUTTON   "确定",IDOK,49,95,50,14,WS_GROUP
+    PUSHBUTTON      "取消",IDCANCEL,103,95,50,14
+    PUSHBUTTON      "帮助(&H)",ID_HELP,157,95,50,14
+END
+
+IDD_CONNECT_PASSWORD DIALOG DISCARDABLE  50, 50, 185, 68
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "需要连接密码"
+FONT 9, "宋体"
+BEGIN
+    CTEXT           "输入所选用户的密码：",IDL_CPDLG_PROMPT,5,
+                    10,175,8
+    EDITTEXT        IDC_CPDLG_PASSWORD,58,25,68,12,ES_PASSWORD |
+                    ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "确定",IDOK,30,50,50,14,WS_GROUP
+    PUSHBUTTON      "取消",IDCANCEL,101,50,50,14
+END
+
+IDD_DIALOG_SHADOWWARN DIALOG DISCARDABLE  0, 0, 212, 78
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "远程控制"
+FONT 9, "宋体"
+BEGIN
+    LTEXT           "终端服务正在建立远程控制会话，请稍候...",
+                    IDC_STATIC,7,7,198,18
+END
+
+IDD_SHADOWSTART DIALOGEX 50, 50, 221, 108
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CONTEXTHELP
+CAPTION "远程控制"
+FONT 9, "宋体"
+BEGIN
+    GROUPBOX        "热键",IDC_STATIC,7,7,207,69,WS_GROUP
+    LTEXT           "要结束远程控制会话，请按这个键，加上下面所选的键：",
+                    IDC_PRESS_KEY,16,20,135,24
+    LTEXT           "要结束远程控制会话，请按数字键盘上的这个键，加上下面所选的键：",
+                    IDC_PRESS_NUMKEYPAD,16,20,135,32
+    COMBOBOX        IDC_SHADOWSTART_HOTKEY,157,19,48,46,CBS_DROPDOWNLIST |
+                    WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Shift",IDC_SHADOWSTART_SHIFT,"Button",BS_AUTOCHECKBOX |
+                    WS_GROUP | WS_TABSTOP,17,58,26,10
+    CONTROL         "Ctrl",IDC_SHADOWSTART_CTRL,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,65,58,30,10
+    CONTROL         "Alt",IDC_SHADOWSTART_ALT,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,114,58,26,10
+    DEFPUSHBUTTON   "确定",IDOK,56,86,50,14,WS_GROUP
+    PUSHBUTTON      "取消",IDCANCEL,110,86,50,14
+    PUSHBUTTON      "帮助(&H)",ID_HELP,164,86,50,14
+END
+
+IDD_CUSTOM_INTERVAL DIALOGEX 50, 50, 184, 70
+STYLE DS_MODALFRAME | DS_SHELLFONT | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "更新间隔设置"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    LTEXT           "请输入任务管理器刷新应等待的时间 (以毫秒为单位)。",
+                    -1,7,6,170,19
+    EDITTEXT        IDC_CUSTOM_INTERVAL_INPUT,58,30,68,12,ES_NUMBER
+
+    CONTROL         "", IDC_CUSTOM_INTERVAL_SPINNER,
+                    UPDOWN_CLASS, WS_CHILD | WS_VISIBLE
+                    | UDS_SETBUDDYINT | UDS_AUTOBUDDY
+                    | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,
+                    125, 30, 11, 12
+
+    DEFPUSHBUTTON   "确定",IDOK,73,50,50,14,WS_GROUP
+    PUSHBUTTON      "取消",IDCANCEL,127,50,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINMENU_TASK MENU DISCARDABLE
+BEGIN
+    POPUP "文件(&F)"
+    BEGIN
+        MENUITEM "新建任务 (运行...)(&N)",          IDM_RUN
+        MENUITEM SEPARATOR
+        MENUITEM "退出任务管理器(&X)",          IDM_EXIT
+    END
+    POPUP "选项(&O)"
+    BEGIN
+        MENUITEM "前端显示(&A)",              IDM_ALWAYSONTOP
+        MENUITEM "使用时自动最小化(&M)",            IDM_MINIMIZEONUSE, CHECKED
+        MENUITEM "最小化时隐藏(&H)",        IDM_HIDEWHENMIN, CHECKED
+        MENUITEM "显示关机菜单(&S)",             IDM_SHOWSHUTDOWN, CHECKED
+    END
+    POPUP "查看(&V)"
+    BEGIN
+        MENUITEM "立即刷新(&R)",                IDM_REFRESH
+        POPUP "更新速度(&U)"
+        BEGIN
+            MENUITEM "高(&H)",                       IDM_HIGH
+            MENUITEM "标准(&N)",                     IDM_NORMAL
+            MENUITEM "低(&L)",                        IDM_LOW
+            MENUITEM "暂停(&P)",                     IDM_PAUSED
+            MENUITEM "自定义(&C)...",                     IDM_CUSTOM
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "大图标(&G)",                IDM_LARGEICONS
+        MENUITEM "小图标(&M)",                IDM_SMALLICONS
+        MENUITEM "详细信息(&D)",                    IDM_DETAILS
+    END
+    POPUP "窗口(&W)"
+    BEGIN
+        MENUITEM "横向平铺(&H)",          IDM_TASK_TILEHORZ
+        MENUITEM "纵向平铺(&V)",            IDM_TASK_TILEVERT
+        MENUITEM "最小化(&M)",                   IDM_TASK_MINIMIZE
+        MENUITEM "最大化(&X)",                   IDM_TASK_MAXIMIZE
+        MENUITEM "层叠(&C)",                    IDM_TASK_CASCADE
+        MENUITEM "前置(&B)",             IDM_TASK_BRINGTOFRONT
+    END
+    MENUITEM "关机(&U)"                       IDM_MENU_SHUTDOWN
+    POPUP "帮助(&H)"
+    BEGIN
+        MENUITEM "任务管理器帮助主题(&H)",   IDM_HELP
+        MENUITEM SEPARATOR
+        MENUITEM "关于任务管理器(&A)",         IDM_ABOUT
+    END
+END
+
+IDR_PROC_CONTEXT MENU DISCARDABLE
+BEGIN
+    POPUP "Banana"
+    BEGIN
+        MENUITEM "打开文件所在的位置(&O)"          IDM_PROC_FILELOCATION
+        MENUITEM SEPARATOR
+        MENUITEM "结束进程(&E)",                IDM_PROC_TERMINATE
+        MENUITEM "结束进程树(&T)",           IDM_ENDTREE
+        MENUITEM "调试(&D)",                      IDM_PROC_DEBUG
+        MENUITEM SEPARATOR
+        POPUP "设置优先级(&P)"
+        BEGIN
+            MENUITEM "实时(&R)",                   IDM_PROC_REALTIME
+            MENUITEM "高(&H)",                       IDM_PROC_HIGH
+            MENUITEM "高于标准(&A)",                IDM_PROC_ABOVENORMAL
+            MENUITEM "标准(&N)",                     IDM_PROC_NORMAL
+            MENUITEM "低于标准(&B)",                IDM_PROC_BELOWNORMAL
+            MENUITEM "低(&L)",                        IDM_PROC_LOW
+        END
+        MENUITEM "关系设置(&A)...",            IDM_AFFINITY
+        MENUITEM SEPARATOR
+        MENUITEM "属性(&R)",                 IDM_PROC_PROPERTIES
+    END
+END
+
+IDR_TASK_CONTEXT MENU DISCARDABLE
+BEGIN
+    POPUP "Apple"
+    BEGIN
+        MENUITEM "切换至(&S)",                  IDM_TASK_SWITCHTO
+        MENUITEM "前置(&B)",             IDM_TASK_BRINGTOFRONT
+        MENUITEM SEPARATOR
+        MENUITEM "最小化(&M)",                   IDM_TASK_MINIMIZE
+        MENUITEM "最大化(&X)",                   IDM_TASK_MAXIMIZE
+        MENUITEM "层叠(&C)",                    IDM_TASK_CASCADE
+        MENUITEM "横向平铺(&H)",          IDM_TASK_TILEHORZ
+        MENUITEM "纵向平铺(&V)",            IDM_TASK_TILEVERT
+        MENUITEM SEPARATOR
+        MENUITEM "结束任务(&E)",                   IDM_TASK_ENDTASK
+        MENUITEM "转到进程(&G)",              IDM_TASK_FINDPROCESS
+    END
+END
+
+IDR_TASKVIEW MENU DISCARDABLE
+BEGIN
+    POPUP "Peach"
+    BEGIN
+        MENUITEM "新建任务 (运行...)(&R)...",          IDM_RUN
+        MENUITEM SEPARATOR
+        MENUITEM "大图标(&G)",                IDM_LARGEICONS
+        MENUITEM "小图标(&M)",                IDM_SMALLICONS
+        MENUITEM "详细信息(&D)",                    IDM_DETAILS
+    END
+END
+
+IDR_MAINMENU_PERF MENU DISCARDABLE
+BEGIN
+    POPUP "文件(&F)"
+    BEGIN
+        MENUITEM "新建任务 (运行...)(&N)",           IDM_RUN
+        MENUITEM SEPARATOR
+        MENUITEM "退出任务管理器(&X)",          IDM_EXIT
+    END
+    POPUP "选项(&O)"
+    BEGIN
+        MENUITEM "前端显示(&A)",              IDM_ALWAYSONTOP
+        MENUITEM "使用时自动最小化(&M)",            IDM_MINIMIZEONUSE, CHECKED
+        MENUITEM "最小化时隐藏(&H)",        IDM_HIDEWHENMIN, CHECKED
+        MENUITEM "显示关机菜单(&S)",             IDM_SHOWSHUTDOWN, CHECKED
+    END
+    POPUP "查看(&V)"
+    BEGIN
+        MENUITEM "立即刷新(&R)",                IDM_REFRESH
+        POPUP "更新速度(&U)"
+        BEGIN
+            MENUITEM "高(&H)",                       IDM_HIGH
+            MENUITEM "标准(&N)",                     IDM_NORMAL
+            MENUITEM "低(&L)",                        IDM_LOW
+            MENUITEM "暂停(&P)",                     IDM_PAUSED
+            MENUITEM "自定义(&C)...",                     IDM_CUSTOM
+        END
+        MENUITEM SEPARATOR
+        POPUP "CPU 记录(&C)"
+        BEGIN
+            MENUITEM "所有 CPU 一张图表(&O)",        IDM_ALLCPUS
+            MENUITEM "每个 CPU 一张图表(&P)",          IDM_MULTIGRAPH
+        END
+        POPUP "内存记录(&M)"
+        BEGIN
+            MENUITEM "物理内存(&P)"             IDM_PHYSMEM
+            MENUITEM "提交负载(&C)"               IDM_COMMITTED
+        END
+        MENUITEM "以 &LCD 风格显示数字",           IDM_LEDNUMBERS
+        MENUITEM "显示内核时间(&S)",          IDM_KERNELTIMES
+    END
+    MENUITEM "关机(&U)"                       IDM_MENU_SHUTDOWN
+    POPUP "帮助(&H)"
+    BEGIN
+        MENUITEM "任务管理器帮助主题(&H)",   IDM_HELP
+        MENUITEM SEPARATOR
+        MENUITEM "关于任务管理器(&A)",         IDM_ABOUT
+    END
+END
+
+IDR_MAINMENU_PROC MENU DISCARDABLE
+BEGIN
+    POPUP "文件(&F)"
+    BEGIN
+        MENUITEM "新建任务 (运行...)(&N)",          IDM_RUN
+        MENUITEM SEPARATOR
+        MENUITEM "退出任务管理器(&X)",          IDM_EXIT
+    END
+    POPUP "选项(&O)"
+    BEGIN
+        MENUITEM "前端显示(&A)",              IDM_ALWAYSONTOP
+        MENUITEM "使用时自动最小化(&M)",            IDM_MINIMIZEONUSE, CHECKED
+        MENUITEM "最小化时隐藏(&H)",        IDM_HIDEWHENMIN, CHECKED
+        MENUITEM "显示关机菜单(&S)",             IDM_SHOWSHUTDOWN, CHECKED
+    END
+    POPUP "查看(&V)"
+    BEGIN
+        MENUITEM "立即刷新(&R)",                IDM_REFRESH
+        POPUP "更新速度(&U)"
+        BEGIN
+            MENUITEM "高(&H)",                       IDM_HIGH
+            MENUITEM "标准(&N)",                     IDM_NORMAL
+            MENUITEM "低(&L)",                        IDM_LOW
+            MENUITEM "暂停(&P)",                     IDM_PAUSED
+            MENUITEM "自定义(&C)...",                     IDM_CUSTOM
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "选择列(&S)...",          IDM_PROCCOLS
+    END
+    MENUITEM "关机(&U)"                       IDM_MENU_SHUTDOWN
+    POPUP "帮助(&H)"
+    BEGIN
+        MENUITEM "任务管理器帮助主题(&H)",   IDM_HELP
+        MENUITEM SEPARATOR
+        MENUITEM "关于任务管理器(&A)",         IDM_ABOUT
+    END
+END
+
+IDR_TRAYMENU MENU DISCARDABLE
+BEGIN
+    POPUP "Pear"
+    BEGIN
+        MENUITEM "还原(&R)",                    IDM_RESTORETASKMAN
+        MENUITEM "关闭(&C)",                      IDM_EXIT
+        MENUITEM SEPARATOR
+        MENUITEM "前端显示(&A)",              IDM_ALWAYSONTOP
+    END
+END
+
+IDR_MAINMENU_USER MENU DISCARDABLE
+BEGIN
+    POPUP "文件(&F)"
+    BEGIN
+        MENUITEM "新建任务 (运行...)(&N)",          IDM_RUN
+        MENUITEM SEPARATOR
+        MENUITEM "退出任务管理器(&X)",          IDM_EXIT
+    END
+    POPUP "选项(&O)"
+    BEGIN
+        MENUITEM "前端显示(&A)",              IDM_ALWAYSONTOP
+        MENUITEM "使用时自动最小化(&M)",            IDM_MINIMIZEONUSE, CHECKED
+        MENUITEM "最小化时隐藏(&H)",        IDM_HIDEWHENMIN, CHECKED
+        MENUITEM "显示关机菜单(&S)",             IDM_SHOWSHUTDOWN, CHECKED
+        MENUITEM SEPARATOR
+        MENUITEM "显示帐户全名(&S)",     IDM_SHOWDOMAINNAMES
+    END
+    POPUP "查看(&V)"
+    BEGIN
+        MENUITEM "立即刷新(&R)",                IDM_REFRESH
+        POPUP "更新速度(&U)"
+        BEGIN
+            MENUITEM "高(&H)",                       IDM_HIGH
+            MENUITEM "标准(&N)",                     IDM_NORMAL
+            MENUITEM "低(&L)",                        IDM_LOW
+            MENUITEM "暂停(&P)",                     IDM_PAUSED
+            MENUITEM "自定义(&C)...",                     IDM_CUSTOM
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "选择列(&S)...",          IDM_USERCOLS
+    END
+    MENUITEM "关机(&U)"                       IDM_MENU_SHUTDOWN
+    POPUP "帮助(&H)"
+    BEGIN
+        MENUITEM "任务管理器帮助主题(&H)",   IDM_HELP
+        MENUITEM SEPARATOR
+        MENUITEM "关于任务管理器(&A)",         IDM_ABOUT
+    END
+END
+
+IDR_USER_CONTEXT MENU DISCARDABLE
+BEGIN
+    POPUP "Hydra"
+    BEGIN
+        MENUITEM "发送消息(&S)...",            IDM_SENDMESSAGE
+        MENUITEM SEPARATOR
+        MENUITEM "连接(&C)",                    IDM_CONNECT
+        MENUITEM "断开(&D)",                 IDM_DISCONNECT
+        MENUITEM "注销(&L)",                    IDM_LOGOFF
+        MENUITEM "远程控制",              IDM_REMOTECONTROL
+    END
+END
+
+IDR_POPUP_SHUTDOWN MENU DISCARDABLE
+BEGIN
+    MENUITEM "待机(&B)"                    IDM_STANDBY
+    MENUITEM "休眠(&H)"                   IDM_HIBERNATE
+    MENUITEM "关闭(&U)"                    IDM_SHUTDOWN
+    MENUITEM "重新启动(&R)"                     IDM_RESTART
+    MENUITEM "注销 %s(&L)"                  IDM_LOGOFF_CURRENTUSER
+    MENUITEM "切换用户(&S)\tWinKey+L"       IDM_SWITCHUSER
+    MENUITEM "断开(&D)"                  IDM_DISCONNECT_CURRENTUSER
+    MENUITEM "弹出计算机(&E)"              IDM_EJECT
+    MENUITEM "锁定计算机(&K)\tWinKey+L"     IDM_LOCKWORKSTATION
+END
+
+IDR_MAINMENU_NET MENU DISCARDABLE
+BEGIN
+    POPUP "文件(&F)"
+    BEGIN
+        MENUITEM "新建任务 (运行...)(&N)",          IDM_RUN
+        MENUITEM SEPARATOR
+        MENUITEM "退出任务管理器(&X)",          IDM_EXIT
+    END
+    POPUP "选项(&O)"
+    BEGIN
+        MENUITEM "前端显示(&A)",              IDM_ALWAYSONTOP
+        MENUITEM "使用时自动最小化(&M)",            IDM_MINIMIZEONUSE,   CHECKED
+        MENUITEM "最小化时隐藏(&H)",        IDM_HIDEWHENMIN,     CHECKED
+        MENUITEM "显示关机菜单(&S)",             IDM_SHOWSHUTDOWN, CHECKED
+        MENUITEM SEPARATOR
+        MENUITEM "选项卡始终活动(&T)",          IDM_TABALWAYSACTIVE, CHECKED
+        MENUITEM "显示累积数据(&C)",       IDM_SHOWALLDATA,     CHECKED
+        MENUITEM "自动缩放(&U)",                 IDM_AUTOSIZE,        CHECKED
+        MENUITEM "重置(&R)",                      IDM_NETRESET
+        MENUITEM "显示比例(&S)",                 IDM_SHOWSCALE,       CHECKED
+
+    END
+    POPUP "查看(&V)"
+    BEGIN
+        MENUITEM "立即刷新(&R)",                IDM_REFRESH
+        POPUP "更新速度(&U)"
+        BEGIN
+            MENUITEM "高(&H)"               ,    IDM_HIGH
+            MENUITEM "标准(&N)",                 IDM_NORMAL
+            MENUITEM "低(&L)",                    IDM_LOW
+            MENUITEM "暂停(&P)",                 IDM_PAUSED
+            MENUITEM "自定义(&C)...",                 IDM_CUSTOM
+        END
+        MENUITEM SEPARATOR
+        POPUP "网卡记录(&N)"
+        BEGIN
+            MENUITEM "发送字节数(&S)\t(红)"  IDM_BYTESSENT
+            MENUITEM "接收字节数(&R)\t(黄)"  IDM_BYTESRECEIVED
+            MENUITEM "总共字节数(&T)\t(绿)"  IDM_BYTESTOTAL
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "选择列(&S)...",          IDM_NETCOL
+    END
+    MENUITEM "关机(&U)"                       IDM_MENU_SHUTDOWN
+    POPUP "帮助(&H)"
+    BEGIN
+        MENUITEM "任务管理器帮助主题(&H)",   IDM_HELP
+        MENUITEM SEPARATOR
+        MENUITEM "关于任务管理器(&A)",         IDM_ABOUT
+    END
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDM_RUN                 "运行新程序"
+    IDM_EXIT                "退出任务管理器应用程序"
+    IDM_SWITCHTO            "将任务前置，将焦点切换到该任务"
+    IDM_BRINGTOFONT         "将任务前置，但不将焦点切换到该任务"
+    IDM_ALWAYSONTOP         "除非被最小化，任务管理器始终在其他窗口前显示"
+    IDM_MINIMIZEONUSE       "在执行“切换至”操作时任务管理器最小化"
+    IDM_SHOWSHUTDOWN        "在菜单栏显示“关机”"
+    IDM_MINIMIZE            "最小化选定的窗口任务"
+    IDM_MAXIMIZE            "将窗口最大化到桌面大小"
+    IDM_RESTORE             "将选定窗口恢复到默认状态"
+    IDM_CASCADE             "对角级联屏幕上选定的窗口"
+    IDM_TILEHORIZONTALLY    "水平平铺选定的窗口任务"
+    IDM_TILEVERTICALLY      "垂直平铺选定的窗口任务"
+    IDM_LARGEICONS          "用大图标显示任务"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDM_TABALWAYSACTIVE     "即便没有选中，“网络”选项卡仍收集数据"
+    IDM_SHOWALLDATA         "显示所有通过网络适配器传递的数据"
+    IDM_AUTOSIZE            "调整图形比例"
+    IDM_NETRESET            "重设所有适配器记录"
+    IDM_SHOWSCALE           "显示比例"
+    IDM_BYTESSENT           "图表仅显示发送的字节数"
+    IDM_BYTESRECEIVED       "图表仅显示接收的字节数"
+    IDM_BYTESTOTAL          "图表一并显示发送和接收的字节总数"
+    IDM_NETCOL              "选择哪些列在“网络”页可见"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDM_SMALLICONS          "用小图标显示任务"
+    IDM_DETAILS             "显示有关每个任务的信息"
+    IDM_ALLCPUS             "单一记录图表显示全部 CPU 的使用情况"
+    IDM_MULTIGRAPH          "每个 CPU 均有其记录图表"
+    IDM_PHYSMEM             "内存图表仅显示物理内存的使用情况"
+    IDM_COMMITTED           "内存图表一并显示物理内存和页面文件的使用情况"
+    IDM_ABOUT               "显示程序信息、版本号和版权"
+    IDM_HIGH                "每秒钟更新两次显示"
+    IDM_NORMAL              "每二秒钟更新一次显示"
+    IDM_LOW                 "每四秒钟更新一次显示"
+    IDM_PAUSED              "不自动更新显示"
+    IDM_CUSTOM              "设置自定义更新间隔"
+    IDM_PROC_DEBUG          "将调试程序附加到该进程"
+    IDM_PROC_TERMINATE      "从系统中删除进程"
+    IDM_PROC_REALTIME       "将进程设置为“实时”优先级类"
+    IDM_PROC_ABOVENORMAL    "将进程设置为“高于标准”优先级类"
+    IDM_PROC_HIGH           "将进程设置为“高”优先级类"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDM_HELP                "显示任务管理器帮助主题"
+    IDM_PROCCOLS            "选择哪些列在“进程”页可见"
+    IDM_REFRESH             "强迫任务管理器立即更新，忽略更新速度设置"
+    IDM_WHATSTHIS           "提供到点的访问并单击帮助"
+    IDM_AFFINITY            "对进程在哪个处理器上运行进行控制"
+    IDM_LEDNUMBERS          "在图表上的数字以液晶风格显示，就像 Windows NT 4.0 一样"
+    IDM_KERNELTIMES         "在性能图上显示核心时间"
+    IDS_NOAFFINITYMASK      "进程必须至少和一个处理器相关。"
+    IDS_INVALIDOPTION       "无效选项"
+    IDS_FMTCPUNUM           "CPU %d"
+    IDS_TOTALTIME           "CPU 总数"
+    IDS_KERNELTIME          "核心 CPU"
+    IDS_MEMUSAGE            "内存使用"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_CANTSETAFFINITY     "无法访问或设置进程关系"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_PERFPAGETITLE       "性能"
+    IDS_RUNTITLE            "创建新任务"
+    IDS_RUNTEXT             "Windows 将根据您所输入的名称，为您打开相应的程序、文件夹、文档或 Internet 资源。"
+    IDS_APPTITLE            "Windows 任务管理器"
+    IDS_PROCPAGETITLE       "进程"
+    IDS_SYSPROC             "System Idle Process"
+    IDS_G                   "G"
+    IDS_M                   "M"
+    IDS_K                   "K"
+    IDS_ZERO                "0"
+    IDS_NONOPERATIONAL      "不可操作"
+    IDS_UNREACHABLE         "无法访问"
+    IDS_DISCONNECTED        "已断开"
+    IDS_CONNECTING          "正在连接"
+    IDS_CONNECTED           "已连接"
+    IDS_OPERATIONAL         "可操作"
+    IDS_UNKNOWNSTATUS       "未知"
+    IDS_BITSPERSEC          "bps"
+    IDS_SCALEFONT           "宋体, MS Song"
+    IDS_PERCENT             "%"
+    IDS_WARNING             "任务管理器警告"
+    IDS_PRICHANGE           "警告：改变进程的优先级类可能会导致不希\n望发生的结果，包括系统不稳定。确实想更\n改优先级类吗？"
+    IDS_KILL                "警告：终止进程会导致不希望发生的结果，\n包括数据丢失和系统不稳定。在被终止前，\n进程将没有机会保存其状态和数据。确实\n想终止该进程吗？"
+    IDS_DEBUG               "警告：调试该进程可能会导致数据丢失。\n确实想附加调试程序吗？"
+    IDS_LOW                 "低"
+    IDS_HIGH                "高"
+    IDS_REALTIME            "实时"
+    IDS_NORMAL              "标准"
+    IDS_UNKNOWN             "暂缺"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_GENFAILURE          "无法完成操作。\n\n"
+    IDS_CANTKILL            "无法中止进程"
+    IDS_CANTDEBUG           "无法附加调试程序"
+    IDS_CANTCHANGEPRI       "无法更改优先级"
+    IDS_BADPROC             "操作对该进程无效。"
+    IDS_TASKPAGETITLE       "应用程序"
+    IDS_HUNG                "未响应"
+    IDS_RUNNING             "正在运行"
+    IDS_CANTCREATEDESKTOP   "无法创建新桌面"
+    IDS_TASKMGR             "任务管理器"
+    IDS_TASKMGRDISABLED     "任务管理器已被系统管理员停用。"
+    IDS_ABOVENORMAL         "高于标准"
+    IDS_BELOWNORMAL         "低于标准"
+    IDS_KILLSYS             "该进程为关键系统进程，任务管理器无法结束进程。"
+    IDS_NETPAGETITLE        "网络"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_COL_IMAGENAME       "映像名称"
+    IDS_COL_PID             "PID"
+    IDS_COL_CPU             "CPU"
+    IDS_COL_CPUTIME         "CPU 时间"
+    IDS_COL_MEMUSAGE        "内存使用"
+    IDS_COL_MEMUSAGEDIFF    "内存使用增量"
+    IDS_COL_PAGEFAULTS      "页面错误"
+    IDS_COL_PAGEFAULTSDIFF  "页面错误增量"
+    IDS_COL_COMMITCHARGE    "虚拟内存大小"
+    IDS_COL_PAGEDPOOL       "页面缓冲池"
+    IDS_COL_NONPAGEDPOOL    "非页面缓冲池"
+    IDS_COL_BASEPRIORITY    "基本优先级"
+    IDS_COL_HANDLECOUNT     "句柄数"
+    IDS_COL_THREADCOUNT     "线程数"
+    IDS_COL_USEROBJECTS     "USER 对象"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_COL_ADAPTERNAME              "网卡名称"
+    IDS_COL_ADAPTERDESC              "网卡描述"
+    IDS_COL_NETWORKUTIL              "网络应用"
+    IDS_COL_LINKSPEED                "线路速度"
+    IDS_COL_STATE                    "状态"
+    IDS_COL_BYTESSENTTHRU            "发送字节吞吐量"
+    IDS_COL_BYTESRECTHRU             "接收字节吞吐量"
+    IDS_COL_BYTESTOTALTHRU           "字节吞吐量"
+    IDS_COL_BYTESSENT                "发送字节数"
+    IDS_COL_BYTESREC                 "接收字节数"
+    IDS_COL_BYTESTOTAL               "字节数"
+    IDS_COL_BYTESSENTPERINTER        "每间隔发送的字节数"
+    IDS_COL_BYTESRECPERINTER         "每间隔接收的字节数"
+    IDS_COL_BYTESTOTALPERINTER       "每间隔的字节数"
+    IDS_COL_UNICASTSSSENT            "发送的单播数"
+    IDS_COL_UNICASTSREC              "接收的单播数"
+    IDS_COL_UNICASTSTOTAL            "单播数"
+    IDS_COL_UNICASTSSENTPERINTER     "每间隔发送的单播数"
+    IDS_COL_UNICASTSRECPERINTER      "每间隔接收的单播数"
+    IDS_COL_UNICASTSTOTALPERINTER    "每间隔的单播数"
+    IDS_COL_NONUNICASTSSSENT         "发送的非单播数"
+    IDS_COL_NONUNICASTSREC           "接收的非单播数"
+    IDS_COL_NONUNICASTSTOTAL         "非单播数"
+    IDS_COL_NONUNICASTSSENTPERINTER  "每间隔发送的非单播数"
+    IDS_COL_NONUNICASTSRECPERINTER   "每间隔接收的非单播数"
+    IDS_COL_NONUNICASTSTOTALPERINTER "每间隔的非单播数"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_COL_GDIOBJECTS      "GDI 对象"
+    IDS_COL_SESSIONID       "会话 ID"
+    IDS_COL_USERNAME        "用户名"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_COL_TASKNAME        "任务"
+    IDS_COL_TASKSTATUS      "状态"
+    IDS_COL_TASKWINSTATION  "WinStation"
+    IDS_COL_TASKDESKTOP     "桌面"
+    IDS_COL_MEMPEAK         "内存使用峰值"
+    IDS_COL_READOPERCOUNT   "I/O 读取"
+    IDS_COL_WRITEOPERCOUNT  "I/O 写入"
+    IDS_COL_OTHEROPERCOUNT  "I/O 其他"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_COL_READXFERCOUNT   "I/O 读取字节"
+    IDS_COL_WRITEXFERCOUNT  "I/O 写入字节"
+    IDS_COL_OTHERXFERCOUNT  "I/O 其他字节"
+    IDS_COL_COMMANDLINE     "命令行"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDM_PROC_NORMAL         "将进程设置为“标准”优先级类"
+    IDM_PROC_BELOWNORMAL    "将进程设置为“低于标准”优先级类"
+    IDM_PROC_LOW            "将进程设置为“低”优先级类"
+    IDM_TASK_MINIMIZE       "使窗口最小化"
+    IDM_TASK_MAXIMIZE       "使窗口最大化"
+    IDM_TASK_CASCADE        "对角级联桌面上的窗口"
+    IDM_TASK_TILEHORZ       "在桌面上水平平铺窗口"
+    IDM_TASK_BRINGTOFRONT   "将窗口前置，但不切换过去"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDM_SHOW16BIT           "在相关的 ntvdm.exe 下显示 16 位的 Windows 任务"
+    IDM_NOTITLE             "隐藏标题和菜单栏"
+    IDM_ENDTREE             "将该进程及其所有子体从系统删除"
+    IDS_KILLTREE            "该操作会终止该进程及任何被其直接或间接启动的进程。\n\n用这种方式强迫进程终止可能会造成数据遗失和系统不稳定。\n\n是否继续？"
+    IDS_KILLTREEFAIL        "无法完全结束进程树 "
+    IDS_KILLTREEFAILBODY    "该进程树中的一个或更多的进程无法结束。\n操作没有完全成功。"
+    IDM_USERCOLS            "选择哪些列在“用户”页可见"
+    IDS_DEFAULT_MESSAGE_TITLE "来自 %s 的消息 - %s"
+    IDS_ERR_CONNECT         "在连接时发生了没有处理的错误。\n\n#%u %s"
+    IDS_PWDDLG_USER         "输入所选用户的密码。"
+    IDS_PWDDLG_USER2        "密码不正确。请再试一次。"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_FMTTASKS            "任务数：%d"
+    IDS_FMTPROCS            "进程数：%d"
+    IDS_FMTMEM              "物理内存：%d%%"
+    IDS_FMTMEMM             "%I64d / %I64d"
+    IDS_FMTCPU              "CPU 使用：%d%%"
+    IDM_TASK_TILEVERT       "在桌面上垂直平铺窗口"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDM_RESTORETASKMAN      "将“任务管理器”从隐藏状态恢复"
+    IDM_HIDEWHENMIN         "最小化时隐藏“任务管理器”"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_SHUTDOWN_REMOTE             "您正在关闭一台远程计算机。除非手动重启，否则没人能使用这台计算机。\r\n\r\n您想继续吗？"
+    IDS_SHUTDOWN_REMOTE_OTHERUSERS  "您正在关闭一台远程计算机，有其他用户正在使用这台机器。除非手动重启，否则没人能使用这台计算机。\r\n\r\n您想继续吗？"
+    IDS_SHUTDOWN_OTHERUSERS         "您正在关闭本机，有其他用户正在使用这台机器。这些用户可能会丢失数据。\r\n\r\n您想继续吗？"
+    IDS_RESTART_OTHERUSERS          "您正在重新启动本机，有其他用户正在使用这台机器。这些用户可能会丢失数据。\r\n\r\n您想继续吗？"
+END
+
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_USR_COL_USERNAME    "用户"
+    IDS_USR_COL_SESSION_ID  "标识"
+    IDS_USR_COL_SESSION_STATUS "状态"
+    IDS_USR_COL_CLIENT_NAME "客户端名"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_USR_COL_WINSTA_NAME "会话"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_USERPAGETITLE       "用户"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_STAT_ACTIVE         "活动中"
+    IDS_STAT_DISCONNECT     "已断开"
+    IDS_STAT_SHADOW         "阴影操作中"
+    IDS_STAT_UNKNOWN        "未知"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_ERR_SENDMESSAGE     "无法发送您发给 %s (SessionId=%d) 用户的消息。  "
+    IDS_ERR_LOGOFF          "%s (SessionId=%d) 用户无法注销。  "
+    IDS_ERR_DISCONNECT      "%s (SessionId=%d) 用户无法断开连接。  "
+    IDS_WARN_LOGOFF         "您确实想注销所选用户吗？"
+    IDS_WARN_DISCONNECT     "您确实想断开所选用户吗？"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDM_SHOWDOMAINNAMES     "显示每位用户帐户所属的域"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_ERR_SHADOW          "会话 (ID %lu) 远程控制失败。"
+    IDS_ERR_SHADOW_DISABLED "由于远程控制在那个会话上被停用，无法远程控制会话 (ID %lu)。"
+    IDS_ERR_SHADOW_DISCONNECTED_NOTIFY_ON
+                            "因为是在用户所需权限启用时中断连接的，所以无法远程控制会话 (ID %lu)。"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_PHYSMEM            "内存"
+    IDS_PHYSMEM_HISTORY    "物理内存使用记录"
+    IDS_COMMITTED          "提交负载"
+    IDS_COMMITTED_HISTORY  "提交负载记录"
+END

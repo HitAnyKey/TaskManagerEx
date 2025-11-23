@@ -1,0 +1,1026 @@
+﻿#include "resource.h"
+#include <windows.h>
+#include <commctrl.h>
+
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_TRADITIONAL
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_MAINWND DIALOGEX 0, 0, 264, 256
+STYLE DS_3DLOOK | DS_FIXEDSYS | WS_POPUP | WS_CLIPCHILDREN | WS_CAPTION |
+    WS_THICKFRAME
+MENU IDR_MAINMENU_TASK
+FONT 9, "新細明體", 0, 0, 0x1
+BEGIN
+    CONTROL         "Tab1",IDC_TABS,"SysTabControl32",WS_TABSTOP,3,3,91,116
+END
+
+IDD_PERFPAGE DIALOGEX 0, 0, 438, 303
+STYLE DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+FONT 9, "新細明體"
+BEGIN
+    CONTROL         "CPU 使用率顯示",IDC_CPUMETER,"Button",BS_OWNERDRAW | WS_DISABLED,14,
+                    17,48,44,WS_EX_CLIENTEDGE
+    CONTROL         "記憶體使用顯示",IDC_MEMMETER,"Button",BS_OWNERDRAW | WS_DISABLED,14,
+                    77,48,44,WS_EX_CLIENTEDGE
+    CONTROL         "記憶體使用記錄",IDC_MEMGRAPH,"Button",BS_OWNERDRAW | WS_DISABLED,82,
+                    77,48,44,WS_EX_CLIENTEDGE
+    LTEXT           "控制碼",IDC_STATIC14,14,139,32,8
+    EDITTEXT        IDC_TOTAL_HANDLES,59,139,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "執行緒",IDC_STATIC15,14,148,32,8
+    EDITTEXT        IDC_TOTAL_THREADS,59,148,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "處理程序",IDC_STATIC16,14,157,34,8
+    EDITTEXT        IDC_TOTAL_PROCESSES,59,157,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "運作時間",IDC_STATIC19,14,166,34,8
+    EDITTEXT        IDC_UP_TIME,59,166,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "總共",IDC_STATIC6,14,192,32,8
+    EDITTEXT        IDC_COMMIT_TOTAL,59,192,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "限制",IDC_STATIC8,14,201,32,8
+    EDITTEXT        IDC_COMMIT_LIMIT,59,201,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "尖峰",IDC_STATIC9,14,210,32,8
+    EDITTEXT        IDC_COMMIT_PEAK,59,210,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "總共",IDC_STATIC2,136,139,32,8
+    EDITTEXT        IDC_TOTAL_PHYSICAL,182,139,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "可用",IDC_STATIC3,136,148,32,8
+    EDITTEXT        IDC_AVAIL_PHYSICAL,182,148,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "未使用",IDC_STATIC18,136,157,32,8
+    EDITTEXT        IDC_FREE_PHYSICAL,182,157,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "系統快取記憶體",IDC_STATIC4,136,166,68,8
+    EDITTEXT        IDC_FILE_CACHE,202,166,37,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "總共",IDC_STATIC11,136,192,32,8
+    EDITTEXT        IDC_KERNEL_TOTAL,182,192,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "已分頁",IDC_STATIC12,136,201,32,8
+    EDITTEXT        IDC_KERNEL_PAGED,182,201,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    LTEXT           "未分頁",IDC_STATIC17,136,210,34,8
+    EDITTEXT        IDC_KERNEL_NONPAGED,182,210,57,8,ES_AUTOHSCROLL | ES_READONLY | ES_RIGHT | NOT WS_BORDER | NOT WS_TABSTOP
+    CONTROL         "CPU 使用率",IDC_STATIC,"DavesFrameClass",0x7,8,5,60,60,
+                    WS_EX_NOPARENTNOTIFY
+    CONTROL         "PF 使用量",IDC_MEMBARFRAME,"DavesFrameClass",0x7,8,67,
+                    60,60,WS_EX_NOPARENTNOTIFY
+    CONTROL         "分頁檔使用記錄",IDC_MEMFRAME,"DavesFrameClass",
+                    0x7,78,67,60,60,WS_EX_NOPARENTNOTIFY
+    CONTROL         "總共",IDC_STATIC13,"DavesFrameClass",0x7,8,129,113,48,
+                    WS_EX_NOPARENTNOTIFY
+    CONTROL         "CPU 使用率記錄",IDC_CPUGRAPH,"Button",BS_OWNERDRAW | WS_DISABLED,82,
+                    15,6,44,WS_EX_CLIENTEDGE
+    CONTROL         "CPU 使用率記錄",IDC_CPUFRAME,"DavesFrameClass",0x7,
+                    78,5,8,60,WS_EX_NOPARENTNOTIFY
+    CONTROL         "實體記憶體 (K)",IDC_STATIC1,"DavesFrameClass",0x7,
+                    130,129,114,48,WS_EX_NOPARENTNOTIFY
+    CONTROL         "確認負載 (K)",IDC_STATIC5,"DavesFrameClass",0x7,8,
+                    182,113,39,WS_EX_NOPARENTNOTIFY
+    CONTROL         "核心記憶體 (K)",IDC_STATIC10,"DavesFrameClass",0x7,
+                    130,182,114,39,WS_EX_NOPARENTNOTIFY
+END
+
+IDD_NETPAGE DIALOGEX 0, 0, 438, 303
+STYLE DS_FIXEDSYS | DS_CONTROL | WS_CHILD
+FONT 9, "新細明體"
+BEGIN
+    CONTROL         "總數",IDC_NICTOTALS,"SysListView32",LVS_REPORT |
+                    LVS_SINGLESEL | WS_BORDER | WS_TABSTOP,9,9,376,131
+    LTEXT           "沒有發現任何使用中的網路介面卡。",IDC_NOADAPTERS,14,139,32,8, SS_CENTER
+    SCROLLBAR       IDC_GRAPHSCROLLVERT,290,5,10,136,SBS_VERT | WS_TABSTOP
+
+END
+
+
+IDD_PROCPAGE DIALOGEX 0, 0, 393, 197
+STYLE DS_3DLOOK | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_CLIPCHILDREN
+FONT 9, "新細明體", 0, 0, 0x1
+BEGIN
+    CONTROL         "處理程序",IDC_PROCLIST,"SysListView32",LVS_REPORT |
+                    LVS_SINGLESEL | WS_BORDER | WS_TABSTOP,9,9,376,131
+    CONTROL         "顯示來自所有使用者的處理程序(&S)",IDC_SHOWALL,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,10,144,120,10
+    PUSHBUTTON      "結束處理程序(&E)",IDC_TERMINATE,320,144,66,14
+END
+
+IDD_TASKPAGE DIALOGEX 0, 0, 393, 177
+STYLE DS_3DLOOK | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_CLIPCHILDREN
+FONT 9, "新細明體", 0, 0, 0x1
+BEGIN
+    CONTROL         "工作",IDC_TASKLIST,"SysListView32",LVS_REPORT |
+                    WS_BORDER | WS_TABSTOP,9,9,378,139
+    PUSHBUTTON      "工作結束(&E)",IDC_ENDTASK,224,152,53,14
+    DEFPUSHBUTTON   "切換至(&S)",IDC_SWITCHTO,280,152,53,14
+    PUSHBUTTON      "新工作(&N)...",IDM_RUN,336,152,53,14
+END
+
+IDD_CREATEDESKTOP DIALOGEX 0, 0, 222, 85
+STYLE DS_MODALFRAME | DS_FIXEDSYS | DS_CENTERMOUSE | WS_POPUP | WS_CAPTION |
+    WS_SYSMENU
+CAPTION "建立新桌面"
+FONT 9, "新細明體", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "確定",IDOK,108,64,50,14
+    PUSHBUTTON      "取消",IDCANCEL,162,64,50,14
+    EDITTEXT        IDC_DESKTOPNAME,41,30,172,14,ES_AUTOHSCROLL
+    CONTROL         "在新桌面上建立檔案總管(&E)",
+                    IDC_STARTEXPLORER,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    41,46,158,10
+    LTEXT           "輸入新桌面的名稱。",
+                    IDC_STATIC,41,10,155,8
+    ICON            IDI_MAIN,IDC_STATIC,8,3,18,20
+    LTEXT           "桌面：",IDC_STATIC,4,33,30,8
+END
+
+IDD_USERSPAGE DIALOG DISCARDABLE  0, 0, 393, 197
+STYLE DS_3DLOOK | DS_FIXEDSYS | DS_CONTROL | WS_CHILD | WS_CLIPCHILDREN
+FONT 9, "新細明體"
+BEGIN
+    CONTROL         "使用者",IDC_USERLIST,"SysListView32",LVS_REPORT |
+                    WS_BORDER | WS_TABSTOP,9,9,376,131
+    PUSHBUTTON      "中斷(&D)",IDM_DISCONNECT,203,144,55,14
+    PUSHBUTTON      "登出(&L)",IDM_LOGOFF,263,144,52,14
+    DEFPUSHBUTTON   "傳送訊息(&S)...",IDM_SENDMESSAGE,320,144,66,14
+END
+
+IDD_SELECTPROCCOLS DIALOG DISCARDABLE  20, 20, 195, 198
+STYLE DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "選擇欄位"
+FONT 9, "新細明體"
+BEGIN
+    DEFPUSHBUTTON   "確定",IDOK,83,176,50,14
+    PUSHBUTTON      "取消",IDCANCEL,137,176,50,14
+    LTEXT           "請選取會顯示在工作管理員［處理程序］畫面的欄位。",
+                    IDC_STATIC,7,4,177,19
+    CONTROL         "影像名稱(&I)",IDC_IMAGENAME,"Button",BS_AUTOCHECKBOX |
+                    WS_DISABLED | WS_TABSTOP,7,26,87,10
+    CONTROL         "PID (程序識別元)(&P)",IDC_PID,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,37,87,10
+    CONTROL         "CPU 使用率(&C)",IDC_CPU,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,48,87,10
+    CONTROL         "CPU 時間(&E)",IDC_CPUTIME,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,59,87,10
+    CONTROL         "記憶體使用量(&M)",IDC_MEMUSAGE,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,70,87,10
+    CONTROL         "記憶體使用量差異(&D)",IDC_MEMUSAGEDIFF,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,81,87,10
+    CONTROL         "尖峰記憶體使用量(&K)",IDC_MEMPEAK,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,92,92,10
+    CONTROL         "分頁錯誤(&F)",IDC_PAGEFAULTS,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,103,87,10
+    CONTROL         "USER 物件(&U)",IDC_USEROBJECTS,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,114,87,10
+    CONTROL         "I/O 讀取次數",IDC_READOPERCOUNT,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,125,87,10
+    CONTROL         "I/O 讀取位元組",IDC_READXFERCOUNT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,136,87,10
+    CONTROL         "工作階段識別碼(&S)",IDC_SESSIONID,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,147,63,10
+    CONTROL         "使用者名稱(&N)",IDC_USERNAME,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,158,63,10
+    CONTROL         "分頁錯誤差異(&A)",IDC_PAGEFAULTSDIFF,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,103,26,87,10
+    CONTROL         "虛擬記憶體大小(&V)",IDC_COMMITCHARGE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,103,37,87,10
+    CONTROL         "分頁集區(&G)",IDC_PAGEDPOOL,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,103,48,87,10
+    CONTROL         "非分頁集區(&O)",IDC_NONPAGEDPOOL,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,103,59,87,10
+    CONTROL         "基本優先順序(&R)",IDC_BASEPRIORITY,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,103,70,87,10
+    CONTROL         "控制碼計數(&H)",IDC_HANDLECOUNT,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,103,81,87,10
+    CONTROL         "執行緒計數(&T)",IDC_THREADCOUNT,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,103,92,87,10
+    CONTROL         "GDI 物件(&J)",IDC_GDIOBJECTS,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,103,103,87,10
+    CONTROL         "I/O 寫入次數",IDC_WRITEOPERCOUNT,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,103,114,87,10
+    CONTROL         "I/O 寫入位元組",IDC_WRITEXFERCOUNT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,103,125,87,10
+    CONTROL         "其他 I/O 次數",IDC_OTHEROPERCOUNT,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,103,136,87,10
+    CONTROL         "其他 I/O 位元組",IDC_OTHERXFERCOUNT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,103,147,87,10
+    CONTROL         "命令列",IDC_COMMANDLINE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,103,158,87,10
+END
+
+
+IDD_SELECTNETCOLS DIALOG DISCARDABLE  20, 20, 250, 198
+STYLE DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "選擇欄位"
+FONT 9, "新細明體"
+BEGIN
+    DEFPUSHBUTTON   "確定",IDOK,83,176,50,14
+    PUSHBUTTON      "取消",IDCANCEL,137,176,50,14
+    LTEXT           "請選取會顯示在工作管理員［網路功能］畫面的欄位。",
+                    IDC_STATIC,7,4,177,19
+
+    CONTROL         "網路介面卡名稱",IDC_ADAPTERNAME,"Button",BS_AUTOCHECKBOX | WS_DISABLED |
+                    WS_TABSTOP,7,26,117,10
+    CONTROL         "介面卡描述",IDC_ADAPTERDESC,"Button",BS_AUTOCHECKBOX |
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,37,117,10
+    CONTROL         "網路使用",IDC_NETWORKUTIL,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,48,117,10
+    CONTROL         "連結速度",IDC_LINKSPEED,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,59,117,10
+    CONTROL         "狀態",IDC_STATE,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,70,117,10
+    CONTROL         "已傳送位元組吞吐量",IDC_BYTESSENTTHRU,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,81,117,10
+    CONTROL         "已接收位元組吞吐量",IDC_BYTESRECTHRU,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,92,117,10
+    CONTROL         "位元組吞吐量",IDC_BYTESTOTALTHRU,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,103,117,10
+    CONTROL         "已傳送位元組",IDC_BYTESSENT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,114,117,10
+    CONTROL         "已接收位元組",IDC_BYTESREC,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,125,117,10
+    CONTROL         "位元組",IDC_BYTESTOTAL,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,136,117,10
+    CONTROL         "已傳送位元組/間隔",IDC_BYTESSENTPERINTER,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,7,147,117,10
+    CONTROL         "已接收位元組/間隔",IDC_BYTESRECPERINTER,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,158,117,10
+    CONTROL         "位元組/間隔",IDC_BYTESTOTALPERINTER,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,133,26,117,10
+    CONTROL         "傳送單點傳播",IDC_UNICASTSSSENT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,133,37,117,10
+    CONTROL         "接收單點傳播",IDC_UNICASTSREC,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,133,48,117,10
+    CONTROL         "單點傳播",IDC_UNICASTSTOTAL,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,133,59,117,10
+    CONTROL         "傳送單點傳播/間隔",IDC_UNICASTSSENTPERINTER,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,133,70,117,10
+    CONTROL         "接收單點傳播/間隔",IDC_UNICASTSRECPERINTER,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,133,81,117,10
+    CONTROL         "單點傳播/間隔",IDC_UNICASTSTOTALPERINTER,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,133,92,117,10
+    CONTROL         "傳送非單點傳播",IDC_NONUNICASTSSSENT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,133,103,117,10
+    CONTROL         "接收非單點傳播",IDC_NONUNICASTSREC,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,133,114,117,10
+    CONTROL         "非單點傳播",IDC_NONUNICASTSTOTAL,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,133,125,117,10
+    CONTROL         "傳送非單點傳播/間隔",IDC_NONUNICASTSSENTPERINTER,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,133,136,117,10
+    CONTROL         "接收非單點傳播/間隔",IDC_NONUNICASTSRECPERINTER,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,133,147,117,10
+    CONTROL         "非單點傳播/間隔",IDC_NONUNICASTSTOTALPERINTER,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,133,158,117,10
+
+END
+
+IDD_AFFINITY DIALOGEX 20, 20, 232, 66
+STYLE DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "處理器相關性設定"
+FONT 9, "新細明體", 0, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "確定",IDOK,121,47,50,14
+    PUSHBUTTON      "取消",IDCANCEL,175,47,50,14
+    LTEXT           "處理器相關性設定可用來決定執行程序時用到的 CPU。",
+                    IDC_STATIC,7,6,218,19
+    CONTROL         "CPU %u",IDC_CPU0,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    13,35,37,10
+END
+
+IDD_SELECTUSERCOLUMNS DIALOG DISCARDABLE  0, 0, 200, 92
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "選擇欄位"
+FONT 9, "新細明體"
+BEGIN
+    DEFPUSHBUTTON   "確定",IDOK,89,71,50,14
+    PUSHBUTTON      "取消",IDCANCEL,143,71,50,14
+    LTEXT           "請選取會顯示在工作管理員［使用者］畫面的欄位。",
+                    IDC_STATIC,7,4,177,19
+    CONTROL         "使用者名稱(&U)",IDC_USER_NAME,"Button",BS_AUTOCHECKBOX |
+                    WS_DISABLED | WS_TABSTOP,7,26,87,10
+    CONTROL         "識別碼(&I)",IDC_SESSION_ID,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,37,87,10
+    CONTROL         "狀態(&S)",IDC_SESSION_STATUS,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,7,47,87,10
+    CONTROL         "用戶端名稱(&C)",IDC_CLIENT_NAME,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,106,36,87,10
+    CONTROL         "工作階段(&E)",IDC_WINSTA_NAME,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,106,47,87,10
+END
+
+IDD_MESSAGE DIALOGEX 50, 50, 214, 116
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CONTEXTHELP
+CAPTION "傳送訊息"
+FONT 9, "新細明體", 0, 0, 0x1
+BEGIN
+    LTEXT           "訊息標題(&M)：",IDC_STATIC,7,7,200,8
+    EDITTEXT        IDC_MESSAGE_TITLE,7,17,200,25,ES_MULTILINE |
+                    ES_AUTOVSCROLL
+    LTEXT           "訊息(&S)：",IDC_STATIC,7,50,200,8
+    EDITTEXT        IDC_MESSAGE_MESSAGE,7,60,200,25,ES_MULTILINE |
+                    ES_AUTOVSCROLL
+    DEFPUSHBUTTON   "確定",IDOK,49,95,50,14,WS_GROUP
+    PUSHBUTTON      "取消",IDCANCEL,103,95,50,14
+    PUSHBUTTON      "説明(&H)",ID_HELP,157,95,50,14
+END
+
+IDD_CONNECT_PASSWORD DIALOG DISCARDABLE  50, 50, 185, 68
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "需要連線密碼"
+FONT 9, "新細明體"
+BEGIN
+    CTEXT           "輸入選取的使用者密碼：",IDL_CPDLG_PROMPT,5,
+                    10,175,8
+    EDITTEXT        IDC_CPDLG_PASSWORD,58,25,68,12,ES_PASSWORD |
+                    ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "確定",IDOK,30,50,50,14,WS_GROUP
+    PUSHBUTTON      "取消",IDCANCEL,101,50,50,14
+END
+
+IDD_DIALOG_SHADOWWARN DIALOG DISCARDABLE  0, 0, 212, 78
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "遠端控制"
+FONT 9, "新細明體"
+BEGIN
+    LTEXT           "請稍候，終端機服務正在建立遠端控制工作階段...",
+                    IDC_STATIC,7,7,198,18
+END
+
+IDD_SHADOWSTART DIALOGEX 50, 50, 221, 108
+STYLE DS_MODALFRAME | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+EXSTYLE WS_EX_CONTEXTHELP
+CAPTION "遠端控制"
+FONT 9, "新細明體"
+BEGIN
+    GROUPBOX        "快速鍵",IDC_STATIC,7,7,207,69,WS_GROUP
+    LTEXT           "要結束遠端控制工作階段，請按這個按鍵，並同時按下面所選取的按鍵：",
+                    IDC_PRESS_KEY,16,20,135,24
+    LTEXT           "要結束遠端控制工作階段，請按數字鍵台上的這個按鍵，並同時按下面所選取的按鍵：",
+                    IDC_PRESS_NUMKEYPAD,16,20,135,32
+    COMBOBOX        IDC_SHADOWSTART_HOTKEY,157,19,48,46,CBS_DROPDOWNLIST |
+                    WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Shift",IDC_SHADOWSTART_SHIFT,"Button",BS_AUTOCHECKBOX |
+                    WS_GROUP | WS_TABSTOP,17,58,26,10
+    CONTROL         "Ctrl",IDC_SHADOWSTART_CTRL,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,65,58,30,10
+    CONTROL         "Alt",IDC_SHADOWSTART_ALT,"Button",BS_AUTOCHECKBOX |
+                    WS_TABSTOP,114,58,26,10
+    DEFPUSHBUTTON   "確定",IDOK,56,86,50,14,WS_GROUP
+    PUSHBUTTON      "取消",IDCANCEL,110,86,50,14
+    PUSHBUTTON      "説明(&H)",ID_HELP,164,86,50,14
+END
+
+IDD_CUSTOM_INTERVAL DIALOGEX 50, 50, 184, 70
+STYLE DS_MODALFRAME | DS_SHELLFONT | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "更新間隔設定"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    LTEXT           "請輸入工作管理員重新整理應等待的時間 (以毫秒為單位)。",
+                    -1,7,6,170,19
+    EDITTEXT        IDC_CUSTOM_INTERVAL_INPUT,58,30,68,12,ES_NUMBER
+
+    CONTROL         "", IDC_CUSTOM_INTERVAL_SPINNER,
+                    UPDOWN_CLASS, WS_CHILD | WS_VISIBLE
+                    | UDS_SETBUDDYINT | UDS_AUTOBUDDY
+                    | UDS_ALIGNRIGHT | UDS_ARROWKEYS | UDS_NOTHOUSANDS,
+                    125, 30, 11, 12
+
+    DEFPUSHBUTTON   "確定",IDOK,73,50,50,14,WS_GROUP
+    PUSHBUTTON      "取消",IDCANCEL,127,50,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINMENU_TASK MENU DISCARDABLE
+BEGIN
+    POPUP "檔案(&F)"
+    BEGIN
+        MENUITEM "新工作 (執行...)(&N)",          IDM_RUN
+        MENUITEM SEPARATOR
+        MENUITEM "結束工作管理員(&X)",          IDM_EXIT
+    END
+    POPUP "選項(&O)"
+    BEGIN
+        MENUITEM "最上層顯示(&A)",              IDM_ALWAYSONTOP
+        MENUITEM "使用時最小化(&M)",            IDM_MINIMIZEONUSE, CHECKED
+        MENUITEM "最小化之後隱藏(&H)",        IDM_HIDEWHENMIN, CHECKED
+        MENUITEM "顯示關機功能表(&S)",             IDM_SHOWSHUTDOWN, CHECKED
+    END
+    POPUP "檢視(&V)"
+    BEGIN
+        MENUITEM "立即重新整理(&R)",                IDM_REFRESH
+        POPUP "更新速度(&U)"
+        BEGIN
+            MENUITEM "高(&H)",                       IDM_HIGH
+            MENUITEM "標準(&N)",                     IDM_NORMAL
+            MENUITEM "低(&L)",                        IDM_LOW
+            MENUITEM "暫停(&P)",                     IDM_PAUSED
+            MENUITEM "自訂(&C)...",                     IDM_CUSTOM
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "大圖示(&G)",                IDM_LARGEICONS
+        MENUITEM "小圖示(&M)",                IDM_SMALLICONS
+        MENUITEM "詳細資料(&D)",                    IDM_DETAILS
+    END
+    POPUP "視窗(&W)"
+    BEGIN
+        MENUITEM "水平並排(&H)",          IDM_TASK_TILEHORZ
+        MENUITEM "垂直並排(&V)",            IDM_TASK_TILEVERT
+        MENUITEM "最小化(&M)",                   IDM_TASK_MINIMIZE
+        MENUITEM "最大化(&X)",                   IDM_TASK_MAXIMIZE
+        MENUITEM "重疊顯示(&C)",                    IDM_TASK_CASCADE
+        MENUITEM "提到最上層(&B)",             IDM_TASK_BRINGTOFRONT
+    END
+    MENUITEM "關機(&U)"                       IDM_MENU_SHUTDOWN
+    POPUP "説明(&H)"
+    BEGIN
+        MENUITEM "工作管理員説明主題(&H)",   IDM_HELP
+        MENUITEM SEPARATOR
+        MENUITEM "關於工作管理員(&A)",         IDM_ABOUT
+    END
+END
+
+IDR_PROC_CONTEXT MENU DISCARDABLE
+BEGIN
+    POPUP "Banana"
+    BEGIN
+        MENUITEM "開啟檔案位置(&O)"          IDM_PROC_FILELOCATION
+        MENUITEM SEPARATOR
+        MENUITEM "結束處理程序(&E)",                IDM_PROC_TERMINATE
+        MENUITEM "結束程序樹狀目錄(&T)",           IDM_ENDTREE
+        MENUITEM "偵錯(&D)",                      IDM_PROC_DEBUG
+        MENUITEM SEPARATOR
+        POPUP "設定優先順序(&P)"
+        BEGIN
+            MENUITEM "即時(&R)",                   IDM_PROC_REALTIME
+            MENUITEM "高(&H)",                       IDM_PROC_HIGH
+            MENUITEM "標準以上(&A)",                IDM_PROC_ABOVENORMAL
+            MENUITEM "標準(&N)",                     IDM_PROC_NORMAL
+            MENUITEM "標準以下(&B)",                IDM_PROC_BELOWNORMAL
+            MENUITEM "低(&L)",                        IDM_PROC_LOW
+        END
+        MENUITEM "設定相關性(&A)...",            IDM_AFFINITY
+        MENUITEM SEPARATOR
+        MENUITEM "内容(&R)",                 IDM_PROC_PROPERTIES
+    END
+END
+
+IDR_TASK_CONTEXT MENU DISCARDABLE
+BEGIN
+    POPUP "Apple"
+    BEGIN
+        MENUITEM "切換至(&S)",                  IDM_TASK_SWITCHTO
+        MENUITEM "提到最上層(&B)",             IDM_TASK_BRINGTOFRONT
+        MENUITEM SEPARATOR
+        MENUITEM "最小化(&M)",                   IDM_TASK_MINIMIZE
+        MENUITEM "最大化(&X)",                   IDM_TASK_MAXIMIZE
+        MENUITEM "重疊顯示(&C)",                    IDM_TASK_CASCADE
+        MENUITEM "水平並排(&H)",          IDM_TASK_TILEHORZ
+        MENUITEM "垂直並排(&V)",            IDM_TASK_TILEVERT
+        MENUITEM SEPARATOR
+        MENUITEM "工作結束(&E)",                   IDM_TASK_ENDTASK
+        MENUITEM "跳到處理程序(&G)",              IDM_TASK_FINDPROCESS
+    END
+END
+
+IDR_TASKVIEW MENU DISCARDABLE
+BEGIN
+    POPUP "Peach"
+    BEGIN
+        MENUITEM "新工作 (執行...)(&R)...",          IDM_RUN
+        MENUITEM SEPARATOR
+        MENUITEM "大圖示(&G)",                IDM_LARGEICONS
+        MENUITEM "小圖示(&M)",                IDM_SMALLICONS
+        MENUITEM "詳細資料(&D)",                    IDM_DETAILS
+    END
+END
+
+IDR_MAINMENU_PERF MENU DISCARDABLE
+BEGIN
+    POPUP "檔案(&F)"
+    BEGIN
+        MENUITEM "新工作 (執行...)(&N)",           IDM_RUN
+        MENUITEM SEPARATOR
+        MENUITEM "結束工作管理員(&X)",          IDM_EXIT
+    END
+    POPUP "選項(&O)"
+    BEGIN
+        MENUITEM "最上層顯示(&A)",              IDM_ALWAYSONTOP
+        MENUITEM "使用時最小化(&M)",            IDM_MINIMIZEONUSE, CHECKED
+        MENUITEM "最小化之後隱藏(&H)",        IDM_HIDEWHENMIN, CHECKED
+        MENUITEM "顯示關機功能表(&S)",             IDM_SHOWSHUTDOWN, CHECKED
+    END
+    POPUP "檢視(&V)"
+    BEGIN
+        MENUITEM "立即重新整理(&R)",                IDM_REFRESH
+        POPUP "更新速度(&U)"
+        BEGIN
+            MENUITEM "高(&H)",                       IDM_HIGH
+            MENUITEM "標準(&N)",                     IDM_NORMAL
+            MENUITEM "低(&L)",                        IDM_LOW
+            MENUITEM "暫停(&P)",                     IDM_PAUSED
+            MENUITEM "自訂(&C)...",                     IDM_CUSTOM
+        END
+        MENUITEM SEPARATOR
+        POPUP "CPU 歷程記錄(&C)"
+        BEGIN
+            MENUITEM "所有 CPU 處理一個圖形(&O)",        IDM_ALLCPUS
+            MENUITEM "一個 CPU 處理一個圖形(&P)",          IDM_MULTIGRAPH
+        END
+        POPUP "記憶體歷程記錄(&M)"
+        BEGIN
+            MENUITEM "實體記憶體(&P)"             IDM_PHYSMEM
+            MENUITEM "確認負載(&C)"               IDM_COMMITTED
+        END
+        MENUITEM "以 &LCD 風格顯示數字",           IDM_LEDNUMBERS
+        MENUITEM "顯示核心程式的時間(&S)",          IDM_KERNELTIMES
+    END
+    MENUITEM "關機(&U)"                       IDM_MENU_SHUTDOWN
+    POPUP "説明(&H)"
+    BEGIN
+        MENUITEM "工作管理員説明主題(&H)",   IDM_HELP
+        MENUITEM SEPARATOR
+        MENUITEM "關於工作管理員(&A)",         IDM_ABOUT
+    END
+END
+
+IDR_MAINMENU_PROC MENU DISCARDABLE
+BEGIN
+    POPUP "檔案(&F)"
+    BEGIN
+        MENUITEM "新工作 (執行...)(&N)",          IDM_RUN
+        MENUITEM SEPARATOR
+        MENUITEM "結束工作管理員(&X)",          IDM_EXIT
+    END
+    POPUP "選項(&O)"
+    BEGIN
+        MENUITEM "最上層顯示(&A)",              IDM_ALWAYSONTOP
+        MENUITEM "使用時最小化(&M)",            IDM_MINIMIZEONUSE, CHECKED
+        MENUITEM "最小化之後隱藏(&H)",        IDM_HIDEWHENMIN, CHECKED
+        MENUITEM "顯示關機功能表(&S)",             IDM_SHOWSHUTDOWN, CHECKED
+    END
+    POPUP "檢視(&V)"
+    BEGIN
+        MENUITEM "立即重新整理(&R)",                IDM_REFRESH
+        POPUP "更新速度(&U)"
+        BEGIN
+            MENUITEM "高(&H)",                       IDM_HIGH
+            MENUITEM "標準(&N)",                     IDM_NORMAL
+            MENUITEM "低(&L)",                        IDM_LOW
+            MENUITEM "暫停(&P)",                     IDM_PAUSED
+            MENUITEM "自訂(&C)...",                     IDM_CUSTOM
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "選擇欄位(&S)...",          IDM_PROCCOLS
+    END
+    MENUITEM "關機(&U)"                       IDM_MENU_SHUTDOWN
+    POPUP "説明(&H)"
+    BEGIN
+        MENUITEM "工作管理員説明主題(&H)",   IDM_HELP
+        MENUITEM SEPARATOR
+        MENUITEM "關於工作管理員(&A)",         IDM_ABOUT
+    END
+END
+
+IDR_TRAYMENU MENU DISCARDABLE
+BEGIN
+    POPUP "Pear"
+    BEGIN
+        MENUITEM "還原(&R)",                    IDM_RESTORETASKMAN
+        MENUITEM "關閉(&C)",                      IDM_EXIT
+        MENUITEM SEPARATOR
+        MENUITEM "最上層顯示(&A)",              IDM_ALWAYSONTOP
+    END
+END
+
+IDR_MAINMENU_USER MENU DISCARDABLE
+BEGIN
+    POPUP "檔案(&F)"
+    BEGIN
+        MENUITEM "新工作 (執行...)(&N)",          IDM_RUN
+        MENUITEM SEPARATOR
+        MENUITEM "結束工作管理員(&X)",          IDM_EXIT
+    END
+    POPUP "選項(&O)"
+    BEGIN
+        MENUITEM "最上層顯示(&A)",              IDM_ALWAYSONTOP
+        MENUITEM "使用時最小化(&M)",            IDM_MINIMIZEONUSE, CHECKED
+        MENUITEM "最小化之後隱藏(&H)",        IDM_HIDEWHENMIN, CHECKED
+        MENUITEM "顯示關機功能表(&S)",             IDM_SHOWSHUTDOWN, CHECKED
+        MENUITEM SEPARATOR
+        MENUITEM "顯示完整的帳戶名稱(&S)",     IDM_SHOWDOMAINNAMES
+    END
+    POPUP "檢視(&V)"
+    BEGIN
+        MENUITEM "立即重新整理(&R)",                IDM_REFRESH
+        POPUP "更新速度(&U)"
+        BEGIN
+            MENUITEM "高(&H)",                       IDM_HIGH
+            MENUITEM "標準(&N)",                     IDM_NORMAL
+            MENUITEM "低(&L)",                        IDM_LOW
+            MENUITEM "暫停(&P)",                     IDM_PAUSED
+            MENUITEM "自訂(&C)...",                     IDM_CUSTOM
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "選擇欄位(&S)...",          IDM_USERCOLS
+    END
+    MENUITEM "關機(&U)"                       IDM_MENU_SHUTDOWN
+    POPUP "説明(&H)"
+    BEGIN
+        MENUITEM "工作管理員説明主題(&H)",   IDM_HELP
+        MENUITEM SEPARATOR
+        MENUITEM "關於工作管理員(&A)",         IDM_ABOUT
+    END
+END
+
+IDR_USER_CONTEXT MENU DISCARDABLE
+BEGIN
+    POPUP "Hydra"
+    BEGIN
+        MENUITEM "傳送訊息(&S)...",            IDM_SENDMESSAGE
+        MENUITEM SEPARATOR
+        MENUITEM "連線(&C)",                    IDM_CONNECT
+        MENUITEM "中斷(&D)",                 IDM_DISCONNECT
+        MENUITEM "登出(&L)",                    IDM_LOGOFF
+        MENUITEM "遠端控制",              IDM_REMOTECONTROL
+    END
+END
+
+IDR_POPUP_SHUTDOWN MENU DISCARDABLE
+BEGIN
+    MENUITEM "待命(&B)"                    IDM_STANDBY
+    MENUITEM "休眠(&H)"                   IDM_HIBERNATE
+    MENUITEM "關機(&U)"                    IDM_SHUTDOWN
+    MENUITEM "重新開機(&R)"                     IDM_RESTART
+    MENUITEM "登出 %s(&L)"                  IDM_LOGOFF_CURRENTUSER
+    MENUITEM "切換使用者(&S)\tWinKey+L"       IDM_SWITCHUSER
+    MENUITEM "中斷(&D)"                  IDM_DISCONNECT_CURRENTUSER
+    MENUITEM "退出電腦(&E)"              IDM_EJECT
+    MENUITEM "鎖住電腦(&K)\tWinKey+L"     IDM_LOCKWORKSTATION
+END
+
+IDR_MAINMENU_NET MENU DISCARDABLE
+BEGIN
+    POPUP "檔案(&F)"
+    BEGIN
+        MENUITEM "新工作 (執行...)(&N)",          IDM_RUN
+        MENUITEM SEPARATOR
+        MENUITEM "結束工作管理員(&X)",          IDM_EXIT
+    END
+    POPUP "選項(&O)"
+    BEGIN
+        MENUITEM "最上層顯示(&A)",              IDM_ALWAYSONTOP
+        MENUITEM "使用時最小化(&M)",            IDM_MINIMIZEONUSE,   CHECKED
+        MENUITEM "最小化之後隱藏(&H)",        IDM_HIDEWHENMIN,     CHECKED
+        MENUITEM "顯示關機功能表(&S)",             IDM_SHOWSHUTDOWN, CHECKED
+        MENUITEM SEPARATOR
+        MENUITEM "索引標籤永遠在使用中(&T)",          IDM_TABALWAYSACTIVE, CHECKED
+        MENUITEM "顯示累積資料(&C)",       IDM_SHOWALLDATA,     CHECKED
+        MENUITEM "自動比例(&U)",                 IDM_AUTOSIZE,        CHECKED
+        MENUITEM "重設(&R)",                      IDM_NETRESET
+        MENUITEM "顯示比例(&S)",                 IDM_SHOWSCALE,       CHECKED
+
+    END
+    POPUP "檢視(&V)"
+    BEGIN
+        MENUITEM "立即重新整理(&R)",                IDM_REFRESH
+        POPUP "更新速度(&U)"
+        BEGIN
+            MENUITEM "高(&H)"               ,    IDM_HIGH
+            MENUITEM "標準(&N)",                 IDM_NORMAL
+            MENUITEM "低(&L)",                    IDM_LOW
+            MENUITEM "暫停(&P)",                 IDM_PAUSED
+            MENUITEM "自訂(&C)...",                 IDM_CUSTOM
+        END
+        MENUITEM SEPARATOR
+        POPUP "網路介面卡記錄(&N)"
+        BEGIN
+            MENUITEM "已傳送位元組(&S)\t(紅色)"  IDM_BYTESSENT
+            MENUITEM "已接收位元組(&R)\t(黃色)"  IDM_BYTESRECEIVED
+            MENUITEM "位元組總數(&T)\t(綠色)"  IDM_BYTESTOTAL
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "選擇欄位(&S)...",          IDM_NETCOL
+    END
+    MENUITEM "關機(&U)"                       IDM_MENU_SHUTDOWN
+    POPUP "説明(&H)"
+    BEGIN
+        MENUITEM "工作管理員説明主題(&H)",   IDM_HELP
+        MENUITEM SEPARATOR
+        MENUITEM "關於工作管理員(&A)",         IDM_ABOUT
+    END
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDM_RUN                 "執行新程式"
+    IDM_EXIT                "結束［工作管理員］應用程式"
+    IDM_SWITCHTO            "將工作留在幕前，將焦點放在該工作上"
+    IDM_BRINGTOFONT         "將工作留在幕前，但是焦點不放在該工作上"
+    IDM_ALWAYSONTOP         "除非［工作管理員］最小化，否則仍然留在其他視窗的最前面"
+    IDM_MINIMIZEONUSE       "當執行［切換至］操作時，[工作管理員] 會縮到最小"
+    IDM_SHOWSHUTDOWN        "在功能表列顯示［關機］"
+    IDM_MINIMIZE            "將選擇的視窗工作最小化"
+    IDM_MAXIMIZE            "將視窗放大成桌面的大小"
+    IDM_RESTORE             "將選擇的視窗還原成預設狀態"
+    IDM_CASCADE             "在螢幕上以對角方式重疊顯示選擇的視窗"
+    IDM_TILEHORIZONTALLY    "將選擇的視窗工作水平並排"
+    IDM_TILEVERTICALLY      "將選擇的視窗工作垂直並排"
+    IDM_LARGEICONS          "以大圖示顯示工作"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDM_TABALWAYSACTIVE     "即使沒有選取的話，［網路功能］索引標籤還是會收集資料"
+    IDM_SHOWALLDATA         "顯示所有經過網路介面卡的資料"
+    IDM_AUTOSIZE            "調整圖形的比例"
+    IDM_NETRESET            "重設所有介面卡記錄"
+    IDM_SHOWSCALE           "顯示比例"
+    IDM_BYTESSENT           "已傳送的位元組圖形"
+    IDM_BYTESRECEIVED       "已接收的位元組圖形"
+    IDM_BYTESTOTAL          "已傳送與接收的位元組總數圖形"
+    IDM_NETCOL              "選取要顯示在［網路功能］畫面的欄位"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDM_SMALLICONS          "以小圖示顯示工作"
+    IDM_DETAILS             "顯示每個工作的資訊"
+    IDM_ALLCPUS             "單歷程記錄圖顯示總 CPU 使用率"
+    IDM_MULTIGRAPH          "每個 CPU 都有它自己的歷程記錄圖"
+    IDM_PHYSMEM             "記憶體圖形顯示實體記憶體的使用量"
+    IDM_COMMITTED           "記憶體圖形顯示實體記憶體和分頁檔的使用量總數"
+    IDM_ABOUT               "顯示程式資訊、版本號碼及著作權"
+    IDM_HIGH                "每秒更新兩次顯示畫面"
+    IDM_NORMAL              "每隔兩秒更新顯示畫面"
+    IDM_LOW                 "每隔四秒更新顯示畫面"
+    IDM_PAUSED              "畫面不會自動更新"
+    IDM_CUSTOM              "設定自訂更新間隔"
+    IDM_PROC_DEBUG          "將偵錯程式連接到這個處理程序"
+    IDM_PROC_TERMINATE      "從系統移除這個處理程序"
+    IDM_PROC_REALTIME       "將處理程序的優先類別設為［即時］"
+    IDM_PROC_ABOVENORMAL    "將處理程序的優先類別設為［標準以上］"
+    IDM_PROC_HIGH           "將處理程序的優先類別設為［高］"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDM_HELP                "顯示［工作管理員］説明主題"
+    IDM_PROCCOLS            "選取要顯示在［處理程序］畫面的欄位"
+    IDM_REFRESH             "不論［更新速度］設定為何，強制［工作管理員］立即更新"
+    IDM_WHATSTHIS           "提供存取點，並按一下說明"
+    IDM_AFFINITY            "控制可執行處理程序的處理器"
+    IDM_LEDNUMBERS          "在圖形中顯示液晶風格的數字，像 Windows NT 4.0 那樣"
+    IDM_KERNELTIMES         "在效能圖形中顯示核心程式時間"
+    IDS_NOAFFINITYMASK      "這個處理程序必須至少與一個處理器設定相關性。"
+    IDS_INVALIDOPTION       "選項不正確"
+    IDS_FMTCPUNUM           "CPU %d"
+    IDS_TOTALTIME           "CPU 總計"
+    IDS_KERNELTIME          "核心 CPU"
+    IDS_MEMUSAGE            "記憶體使用量"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_CANTSETAFFINITY     "無法存取或設定處理關連"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_PERFPAGETITLE       "效能"
+    IDS_RUNTITLE            "建立新工作"
+    IDS_RUNTEXT             "輸入程式、資料夾、文件或網際網路資源的名稱，Windows 會自動開啟。"
+    IDS_APPTITLE            "Windows 工作管理員"
+    IDS_PROCPAGETITLE       "處理程序"
+    IDS_SYSPROC             "System Idle Process"
+    IDS_G                   "G"
+    IDS_M                   "M"
+    IDS_K                   "K"
+    IDS_ZERO                "0"
+    IDS_NONOPERATIONAL      "無法操作"
+    IDS_UNREACHABLE         "無法取得"
+    IDS_DISCONNECTED        "已中斷"
+    IDS_CONNECTING          "連線中"
+    IDS_CONNECTED           "已連線"
+    IDS_OPERATIONAL         "可操作"
+    IDS_UNKNOWNSTATUS       "不明"
+    IDS_BITSPERSEC          "bps"
+    IDS_SCALEFONT           "新細明體"
+    IDS_PERCENT             "%"
+    IDS_WARNING             "工作管理員警告"
+    IDS_PRICHANGE           "警告：變更這個程序的優先等級可能會\n導致嚴重問題，包括系統不穩定。\n您確定要變更優先等級？"
+    IDS_KILL                "警告：中止處理程序會導致嚴重問題，\n包括資料遺失及系統不穩定。\n處理程序在中止之前將沒有機會儲存\n它的狀態資料。\n您確定要中止處理程序嗎？"
+    IDS_DEBUG               "警告：偵錯程序的錯誤將導致資料流失。\n您確定要連接偵錯程式？"
+    IDS_LOW                 "低"
+    IDS_HIGH                "高"
+    IDS_REALTIME            "即時"
+    IDS_NORMAL              "標準"
+    IDS_UNKNOWN             "N/A"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_GENFAILURE          "這項操作無法完成。\n\n"
+    IDS_CANTKILL            "無法中止程序"
+    IDS_CANTDEBUG           "無法連接偵錯程式"
+    IDS_CANTCHANGEPRI       "無法變更優先順序"
+    IDS_BADPROC             "這項操作對這個處理程序無效。"
+    IDS_TASKPAGETITLE       "應用程式"
+    IDS_HUNG                "沒有回應"
+    IDS_RUNNING             "執行中"
+    IDS_CANTCREATEDESKTOP   "無法建立新桌面"
+    IDS_TASKMGR             "工作管理員"
+    IDS_TASKMGRDISABLED     "工作管理員已經被您的系統管理員停用。"
+    IDS_ABOVENORMAL         "標準以上"
+    IDS_BELOWNORMAL         "標準以下"
+    IDS_KILLSYS             "這是重要的系統處理。工作管理員無法結束這個處理。"
+    IDS_NETPAGETITLE        "網路功能"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_COL_IMAGENAME       "影像名稱"
+    IDS_COL_PID             "PID"
+    IDS_COL_CPU             "CPU"
+    IDS_COL_CPUTIME         "CPU 時間"
+    IDS_COL_MEMUSAGE        "記憶體使用量"
+    IDS_COL_MEMUSAGEDIFF    "記憶體使用量差異"
+    IDS_COL_PAGEFAULTS      "分頁錯誤"
+    IDS_COL_PAGEFAULTSDIFF  "分頁錯誤差異"
+    IDS_COL_COMMITCHARGE    "虛擬記憶體大小"
+    IDS_COL_PAGEDPOOL       "分頁集區"
+    IDS_COL_NONPAGEDPOOL    "非分頁集區"
+    IDS_COL_BASEPRIORITY    "基本優先順序"
+    IDS_COL_HANDLECOUNT     "控制碼"
+    IDS_COL_THREADCOUNT     "執行緒"
+    IDS_COL_USEROBJECTS     "USER 物件"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_COL_ADAPTERNAME              "介面卡名稱"
+    IDS_COL_ADAPTERDESC              "介面卡描述"
+    IDS_COL_NETWORKUTIL              "網路使用"
+    IDS_COL_LINKSPEED                "連結速度"
+    IDS_COL_STATE                    "狀態"
+    IDS_COL_BYTESSENTTHRU            "已傳送位元組輸送量"
+    IDS_COL_BYTESRECTHRU             "已接收位元組輸送量"
+    IDS_COL_BYTESTOTALTHRU           "位元組輸送量"
+    IDS_COL_BYTESSENT                "已傳送位元組"
+    IDS_COL_BYTESREC                 "已接收位元組"
+    IDS_COL_BYTESTOTAL               "位元組"
+    IDS_COL_BYTESSENTPERINTER        "每個間隔所傳送的位元組數目"
+    IDS_COL_BYTESRECPERINTER         "每個間隔所接收的位元組數目"
+    IDS_COL_BYTESTOTALPERINTER       "每個間隔的位元組數目"
+    IDS_COL_UNICASTSSSENT            "傳送單點傳播"
+    IDS_COL_UNICASTSREC              "接收單點傳播"
+    IDS_COL_UNICASTSTOTAL            "單點傳播"
+    IDS_COL_UNICASTSSENTPERINTER     "每個間隔所傳送的單點傳播數目"
+    IDS_COL_UNICASTSRECPERINTER      "每個間隔所接收的單點傳播數目"
+    IDS_COL_UNICASTSTOTALPERINTER    "每個間隔的單點傳播數目"
+    IDS_COL_NONUNICASTSSSENT         "傳送非單點傳播"
+    IDS_COL_NONUNICASTSREC           "接收非單點傳播"
+    IDS_COL_NONUNICASTSTOTAL         "非單點傳播"
+    IDS_COL_NONUNICASTSSENTPERINTER  "每個間隔所傳送的非單點傳播數目"
+    IDS_COL_NONUNICASTSRECPERINTER   "每個間隔所接收的非單點傳播數目"
+    IDS_COL_NONUNICASTSTOTALPERINTER "每個間隔的非單點傳播數目"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_COL_GDIOBJECTS      "GDI 物件"
+    IDS_COL_SESSIONID       "工作階段識別碼"
+    IDS_COL_USERNAME        "使用者名稱"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_COL_TASKNAME        "工作"
+    IDS_COL_TASKSTATUS      "狀態"
+    IDS_COL_TASKWINSTATION  "WinStation"
+    IDS_COL_TASKDESKTOP     "桌面"
+    IDS_COL_MEMPEAK         "尖峰記憶體用量"
+    IDS_COL_READOPERCOUNT   "I/O 讀取次數"
+    IDS_COL_WRITEOPERCOUNT  "I/O 寫入次數"
+    IDS_COL_OTHEROPERCOUNT  "其他 I/O 次數"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_COL_READXFERCOUNT   "I/O 讀取位元組"
+    IDS_COL_WRITEXFERCOUNT  "I/O 寫入位元組"
+    IDS_COL_OTHERXFERCOUNT  "其他 I/O 位元組"
+    IDS_COL_COMMANDLINE     "命令列"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDM_PROC_NORMAL         "將處理程序的優先類別設為［標準］"
+    IDM_PROC_BELOWNORMAL    "將處理程序的優先類別設為［標準以下］"
+    IDM_PROC_LOW            "將處理程序的優先類別設為［低］"
+    IDM_TASK_MINIMIZE       "將視窗最小化"
+    IDM_TASK_MAXIMIZE       "將視窗最大化"
+    IDM_TASK_CASCADE        "將桌面上的視窗以對角方式重疊顯示"
+    IDM_TASK_TILEHORZ       "將桌面上的視窗水平並排"
+    IDM_TASK_BRINGTOFRONT   "將視窗留在幕前，但不切換到該視窗"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDM_SHOW16BIT           "在相關的 ntvdm.exe 之下顯示 16 位元 Windows 工作"
+    IDM_NOTITLE             "隱藏標題和功能表列"
+    IDM_ENDTREE             "從系統移除這個處理程序和所有處理子程序"
+    IDS_KILLTREE            "這個操作將嘗試中止這個處理，並中止直接或間接由這個處理所啟動的所有處理。\n\n用這種方式強迫中止處理，可能引起資料遺失和系統不穩定。\n\n您確定要繼續嗎？"
+    IDS_KILLTREEFAIL        "無法完全結束處理程序樹系 "
+    IDS_KILLTREEFAILBODY    "處理程序樹系中的某些處理無法\n結束。這項操作失敗。"
+    IDM_USERCOLS            "選取要顯示在［使用者］畫面的欄位"
+    IDS_DEFAULT_MESSAGE_TITLE "訊息來自 %s - %s"
+    IDS_ERR_CONNECT         "連線時發生無法處理的錯誤。\n\n#%u %s"
+    IDS_PWDDLG_USER         "請輸入選取的使用者密碼。"
+    IDS_PWDDLG_USER2        "密碼錯誤。請再試一次。"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_FMTTASKS            "工作：%d"
+    IDS_FMTPROCS            "處理程序：%d"
+    IDS_FMTMEM              "實體記憶體：%d%%"
+    IDS_FMTMEMM             "%I64d / %I64d"
+    IDS_FMTCPU              "CPU 使用率：%d%%"
+    IDM_TASK_TILEVERT       "將桌面上的視窗垂直並排"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDM_RESTORETASKMAN      "將［工作管理員］從隱藏狀態還原"
+    IDM_HIDEWHENMIN         "在［工作管理員］最小化時將它隱藏"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_SHUTDOWN_REMOTE             "您即將把遠端電腦關機。除非有人以手動方式再啟動這部電腦，否則將無人可以使用這部電腦。\r\n\r\n您要繼續嗎？"
+    IDS_SHUTDOWN_REMOTE_OTHERUSERS  "您即將關機的遠端電腦還有其他使用者正在使用它。除非有人以手動方式再啟動這部電腦，否則將無人可以使用這部電腦。\r\n\r\n您要繼續嗎？"
+    IDS_SHUTDOWN_OTHERUSERS         "您即將關機的這部電腦還有其他使用者正在使用它。這些使用者可能會失去資料。\r\n\r\n您要繼續嗎？"
+    IDS_RESTART_OTHERUSERS          "您即將重新啟動的這部電腦還有其他使用者正在使用它。這些使用者可能會失去資料。\r\n\r\n您要繼續嗎？"
+END
+
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_USR_COL_USERNAME    "使用者"
+    IDS_USR_COL_SESSION_ID  "識別碼"
+    IDS_USR_COL_SESSION_STATUS "狀態"
+    IDS_USR_COL_CLIENT_NAME "用戶端名稱"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_USR_COL_WINSTA_NAME "工作階段"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_USERPAGETITLE       "使用者"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_STAT_ACTIVE         "使用中"
+    IDS_STAT_DISCONNECT     "已中斷"
+    IDS_STAT_SHADOW         "正在處理索引記錄"
+    IDS_STAT_UNKNOWN        "不明"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_ERR_SENDMESSAGE     "您給使用者 %s (SessionId=%d) 的訊息無法傳送。  "
+    IDS_ERR_LOGOFF          "使用者 %s (SessionId=%d) 無法登出。  "
+    IDS_ERR_DISCONNECT      "使用者 %s (SessionId=%d) 無法中斷連線。  "
+    IDS_WARN_LOGOFF         "您確定要登出選取的使用者嗎？"
+    IDS_WARN_DISCONNECT     "您確定要中斷選取的使用者連線嗎？"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDM_SHOWDOMAINNAMES     "顯示每個使用者帳戶所屬的網域"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_ERR_SHADOW          "工作階段 (識別碼 %lu) 遠端控制失敗。"
+    IDS_ERR_SHADOW_DISABLED "無法由遠端控制工作階段 (識別碼 %lu)，因為該工作階段的遠端控制已經停用了。"
+    IDS_ERR_SHADOW_DISCONNECTED_NOTIFY_ON
+                            "無法由遠端控制工作階段 (識別碼 %lu)，因為連線已經被擁有必要權限的使用者中斷了。"
+END
+
+STRINGTABLE DISCARDABLE
+BEGIN
+    IDS_PHYSMEM            "記憶體"
+    IDS_PHYSMEM_HISTORY    "實體記憶體使用記錄"
+    IDS_COMMITTED          "確認負載"
+    IDS_COMMITTED_HISTORY  "確認負載量記錄"
+END
